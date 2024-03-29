@@ -3517,7 +3517,7 @@ function webViewerPageRender({
   pageNumber
 }) {
   if (pageNumber === PDFViewerApplication.page) {
-    PDFViewerApplication.toolbar?.updateLoadingIndicatorState(true);
+   //  PDFViewerApplication.toolbar?.updateLoadingIndicatorState(true);
   }
 }
 function webViewerPageRendered({
@@ -3525,7 +3525,7 @@ function webViewerPageRendered({
   error
 }) {
   if (pageNumber === PDFViewerApplication.page) {
-    PDFViewerApplication.toolbar?.updateLoadingIndicatorState(false);
+   //  PDFViewerApplication.toolbar?.updateLoadingIndicatorState(false);
   }
   if (PDFViewerApplication.pdfSidebar?.visibleView === _ui_utils_js__WEBPACK_IMPORTED_MODULE_0__.SidebarView.THUMBS) {
     const pageView = PDFViewerApplication.pdfViewer.getPageView(pageNumber - 1);
@@ -3796,7 +3796,7 @@ function webViewerPageChanging({
     PDFViewerApplication.pdfThumbnailViewer?.scrollThumbnailIntoView(pageNumber);
   }
   const currentPage = PDFViewerApplication.pdfViewer.getPageView(pageNumber - 1);
-  PDFViewerApplication.toolbar?.updateLoadingIndicatorState(currentPage?.renderingState === _ui_utils_js__WEBPACK_IMPORTED_MODULE_0__.RenderingStates.RUNNING);
+//   PDFViewerApplication.toolbar?.updateLoadingIndicatorState(currentPage?.renderingState === _ui_utils_js__WEBPACK_IMPORTED_MODULE_0__.RenderingStates.RUNNING);
 }
 function webViewerResolutionChange(evt) {
   PDFViewerApplication.pdfViewer.refresh();
