@@ -13002,11 +13002,11 @@ class SecondaryToolbar {
       eventName: "documentproperties",
       close: true
     }];
-   //  buttons.push({
-   //    element: options.openFileButton,
-   //    eventName: "openfile",
-   //    close: true
-   //  });
+    buttons.push({
+      element: options.openFileButton,
+      eventName: "openfile",
+      close: true
+    });
     this.eventBus = eventBus;
     this.opened = false;
     this.#bindListeners(buttons);
