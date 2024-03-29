@@ -3467,7 +3467,7 @@ const PDFViewerApplication = {
   }
 };
 {
-  const HOSTED_VIEWER_ORIGINS = ["null", "http://zachthe.dev", "https://zachthe.dev", "http://localhost:5500"];
+  const HOSTED_VIEWER_ORIGINS = ["null", "http://zachthe.dev", "https://zachthe.dev", "http://127.0.0.1:5500"];
   var validateFileURL = function (file) {
     if (!file) {
       return;
@@ -12918,15 +12918,18 @@ class SecondaryToolbar {
       element: options.viewBookmarkButton,
       eventName: null,
       close: true
-    }, {
-      element: options.firstPageButton,
-      eventName: "firstpage",
-      close: true
-    }, {
-      element: options.lastPageButton,
-      eventName: "lastpage",
-      close: true
-    }, {
+    }, 
+   //  {
+   //    element: options.firstPageButton,
+   //    eventName: "firstpage",
+   //    close: true
+   //  }
+   //  , {
+   //    element: options.lastPageButton,
+   //    eventName: "lastpage",
+   //    close: true
+   //  }, 
+    {
       element: options.pageRotateCwButton,
       eventName: "rotatecw",
       close: false
@@ -13002,11 +13005,11 @@ class SecondaryToolbar {
       eventName: "documentproperties",
       close: true
     }];
-    buttons.push({
-      element: options.openFileButton,
-      eventName: "openfile",
-      close: true
-    });
+   //  buttons.push({
+   //    element: options.openFileButton,
+   //    eventName: "openfile",
+   //    close: true
+   //  });
     this.eventBus = eventBus;
     this.opened = false;
     this.#bindListeners(buttons);
@@ -13036,13 +13039,13 @@ class SecondaryToolbar {
   }
   #updateUIState() {
     const {
-      firstPageButton,
-      lastPageButton,
+      // firstPageButton,
+      // lastPageButton,
       pageRotateCwButton,
       pageRotateCcwButton
     } = this.#opts;
-    firstPageButton.disabled = this.pageNumber <= 1;
-    lastPageButton.disabled = this.pageNumber >= this.pagesCount;
+   //  firstPageButton.disabled = this.pageNumber <= 1;
+   //  lastPageButton.disabled = this.pageNumber >= this.pagesCount;
     pageRotateCwButton.disabled = this.pagesCount === 0;
     pageRotateCcwButton.disabled = this.pagesCount === 0;
   }
@@ -13864,13 +13867,15 @@ class Toolbar {
   constructor(options, eventBus) {
     this.#opts = options;
     this.eventBus = eventBus;
-    const buttons = [{
-      element: options.previous,
-      eventName: "previouspage"
-    }, {
-      element: options.next,
-      eventName: "nextpage"
-    }, {
+    const buttons = [
+   //    {
+   //    element: options.previous,
+   //    eventName: "previouspage"
+   //  }, {
+   //    element: options.next,
+   //    eventName: "nextpage"
+   //  }, 
+    {
       element: options.zoomIn,
       eventName: "zoomin"
     }, {
@@ -13882,51 +13887,53 @@ class Toolbar {
     }, {
       element: options.download,
       eventName: "download"
-    }, {
-      element: options.editorFreeTextButton,
-      eventName: "switchannotationeditormode",
-      eventDetails: {
-        get mode() {
-          const {
-            classList
-          } = options.editorFreeTextButton;
-          return classList.contains("toggled") ? pdfjs_lib__WEBPACK_IMPORTED_MODULE_0__.AnnotationEditorType.NONE : pdfjs_lib__WEBPACK_IMPORTED_MODULE_0__.AnnotationEditorType.FREETEXT;
-        }
-      }
-    }, {
-      element: options.editorHighlightButton,
-      eventName: "switchannotationeditormode",
-      eventDetails: {
-        get mode() {
-          const {
-            classList
-          } = options.editorHighlightButton;
-          return classList.contains("toggled") ? pdfjs_lib__WEBPACK_IMPORTED_MODULE_0__.AnnotationEditorType.NONE : pdfjs_lib__WEBPACK_IMPORTED_MODULE_0__.AnnotationEditorType.HIGHLIGHT;
-        }
-      }
-    }, {
-      element: options.editorInkButton,
-      eventName: "switchannotationeditormode",
-      eventDetails: {
-        get mode() {
-          const {
-            classList
-          } = options.editorInkButton;
-          return classList.contains("toggled") ? pdfjs_lib__WEBPACK_IMPORTED_MODULE_0__.AnnotationEditorType.NONE : pdfjs_lib__WEBPACK_IMPORTED_MODULE_0__.AnnotationEditorType.INK;
-        }
-      }
-    }, {
-      element: options.editorStampButton,
-      eventName: "switchannotationeditormode",
-      eventDetails: {
-        get mode() {
-          const {
-            classList
-          } = options.editorStampButton;
-          return classList.contains("toggled") ? pdfjs_lib__WEBPACK_IMPORTED_MODULE_0__.AnnotationEditorType.NONE : pdfjs_lib__WEBPACK_IMPORTED_MODULE_0__.AnnotationEditorType.STAMP;
-        }
-      }
-    }];
+    },
+   //   {
+   //    element: options.editorFreeTextButton,
+   //    eventName: "switchannotationeditormode",
+   //    eventDetails: {
+   //      get mode() {
+   //        const {
+   //          classList
+   //        } = options.editorFreeTextButton;
+   //        return classList.contains("toggled") ? pdfjs_lib__WEBPACK_IMPORTED_MODULE_0__.AnnotationEditorType.NONE : pdfjs_lib__WEBPACK_IMPORTED_MODULE_0__.AnnotationEditorType.FREETEXT;
+   //      }
+   //    }
+   //  }, {
+   //    element: options.editorHighlightButton,
+   //    eventName: "switchannotationeditormode",
+   //    eventDetails: {
+   //      get mode() {
+   //        const {
+   //          classList
+   //        } = options.editorHighlightButton;
+   //        return classList.contains("toggled") ? pdfjs_lib__WEBPACK_IMPORTED_MODULE_0__.AnnotationEditorType.NONE : pdfjs_lib__WEBPACK_IMPORTED_MODULE_0__.AnnotationEditorType.HIGHLIGHT;
+   //      }
+   //    }
+   //  }, {
+   //    element: options.editorInkButton,
+   //    eventName: "switchannotationeditormode",
+   //    eventDetails: {
+   //      get mode() {
+   //        const {
+   //          classList
+   //        } = options.editorInkButton;
+   //        return classList.contains("toggled") ? pdfjs_lib__WEBPACK_IMPORTED_MODULE_0__.AnnotationEditorType.NONE : pdfjs_lib__WEBPACK_IMPORTED_MODULE_0__.AnnotationEditorType.INK;
+   //      }
+   //    }
+   //  }, {
+   //    element: options.editorStampButton,
+   //    eventName: "switchannotationeditormode",
+   //    eventDetails: {
+   //      get mode() {
+   //        const {
+   //          classList
+   //        } = options.editorStampButton;
+   //        return classList.contains("toggled") ? pdfjs_lib__WEBPACK_IMPORTED_MODULE_0__.AnnotationEditorType.NONE : pdfjs_lib__WEBPACK_IMPORTED_MODULE_0__.AnnotationEditorType.STAMP;
+   //      }
+   //    }
+   //  }
+   ];
     this.#bindListeners(buttons);
     if (options.editorHighlightColorPicker) {
       eventBus._on("annotationeditoruimanager", ({
@@ -13969,7 +13976,7 @@ class Toolbar {
     this.pageScaleValue = _ui_utils_js__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_SCALE_VALUE;
     this.pageScale = _ui_utils_js__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_SCALE;
     this.#updateUIState(true);
-    this.updateLoadingIndicatorState();
+   //  this.updateLoadingIndicatorState();
     this.#editorModeChanged({
       mode: pdfjs_lib__WEBPACK_IMPORTED_MODULE_0__.AnnotationEditorType.DISABLE
     });
@@ -13979,7 +13986,7 @@ class Toolbar {
       eventBus
     } = this;
     const {
-      pageNumber,
+      // pageNumber,
       scaleSelect
     } = this.#opts;
     const self = this;
@@ -13998,15 +14005,15 @@ class Toolbar {
         }
       });
     }
-    pageNumber.addEventListener("click", function () {
-      this.select();
-    });
-    pageNumber.addEventListener("change", function () {
-      eventBus.dispatch("pagenumberchanged", {
-        source: self,
-        value: this.value
-      });
-    });
+   //  pageNumber.addEventListener("click", function () {
+   //    this.select();
+   //  });
+   //  pageNumber.addEventListener("change", function () {
+   //    eventBus.dispatch("pagenumberchanged", {
+   //      source: self,
+   //      value: this.value
+   //    });
+   //  });
     scaleSelect.addEventListener("change", function () {
       if (this.value === "custom") {
         return;
@@ -14030,57 +14037,57 @@ class Toolbar {
     mode
   }) {
     const {
-      editorFreeTextButton,
-      editorFreeTextParamsToolbar,
-      editorHighlightButton,
-      editorHighlightParamsToolbar,
-      editorInkButton,
-      editorInkParamsToolbar,
-      editorStampButton,
-      editorStampParamsToolbar
+      // editorFreeTextButton,
+      // editorFreeTextParamsToolbar,
+      // editorHighlightButton,
+      // editorHighlightParamsToolbar,
+      // editorInkButton,
+      // editorInkParamsToolbar,
+      // editorStampButton,
+      // editorStampParamsToolbar
     } = this.#opts;
-    (0,_ui_utils_js__WEBPACK_IMPORTED_MODULE_1__.toggleCheckedBtn)(editorFreeTextButton, mode === pdfjs_lib__WEBPACK_IMPORTED_MODULE_0__.AnnotationEditorType.FREETEXT, editorFreeTextParamsToolbar);
-    (0,_ui_utils_js__WEBPACK_IMPORTED_MODULE_1__.toggleCheckedBtn)(editorHighlightButton, mode === pdfjs_lib__WEBPACK_IMPORTED_MODULE_0__.AnnotationEditorType.HIGHLIGHT, editorHighlightParamsToolbar);
-    (0,_ui_utils_js__WEBPACK_IMPORTED_MODULE_1__.toggleCheckedBtn)(editorInkButton, mode === pdfjs_lib__WEBPACK_IMPORTED_MODULE_0__.AnnotationEditorType.INK, editorInkParamsToolbar);
-    (0,_ui_utils_js__WEBPACK_IMPORTED_MODULE_1__.toggleCheckedBtn)(editorStampButton, mode === pdfjs_lib__WEBPACK_IMPORTED_MODULE_0__.AnnotationEditorType.STAMP, editorStampParamsToolbar);
+   //  (0,_ui_utils_js__WEBPACK_IMPORTED_MODULE_1__.toggleCheckedBtn)(editorFreeTextButton, mode === pdfjs_lib__WEBPACK_IMPORTED_MODULE_0__.AnnotationEditorType.FREETEXT, editorFreeTextParamsToolbar);
+   //  (0,_ui_utils_js__WEBPACK_IMPORTED_MODULE_1__.toggleCheckedBtn)(editorHighlightButton, mode === pdfjs_lib__WEBPACK_IMPORTED_MODULE_0__.AnnotationEditorType.HIGHLIGHT, editorHighlightParamsToolbar);
+   //  (0,_ui_utils_js__WEBPACK_IMPORTED_MODULE_1__.toggleCheckedBtn)(editorInkButton, mode === pdfjs_lib__WEBPACK_IMPORTED_MODULE_0__.AnnotationEditorType.INK, editorInkParamsToolbar);
+   //  (0,_ui_utils_js__WEBPACK_IMPORTED_MODULE_1__.toggleCheckedBtn)(editorStampButton, mode === pdfjs_lib__WEBPACK_IMPORTED_MODULE_0__.AnnotationEditorType.STAMP, editorStampParamsToolbar);
     const isDisable = mode === pdfjs_lib__WEBPACK_IMPORTED_MODULE_0__.AnnotationEditorType.DISABLE;
-    editorFreeTextButton.disabled = isDisable;
-    editorHighlightButton.disabled = isDisable;
-    editorInkButton.disabled = isDisable;
-    editorStampButton.disabled = isDisable;
+   //  editorFreeTextButton.disabled = isDisable;
+   //  editorHighlightButton.disabled = isDisable;
+   //  editorInkButton.disabled = isDisable;
+   //  editorStampButton.disabled = isDisable;
   }
   #updateUIState(resetNumPages = false) {
     const {
-      pageNumber,
+      // pageNumber,
       pagesCount,
       pageScaleValue,
       pageScale
     } = this;
     const opts = this.#opts;
-    if (resetNumPages) {
-      if (this.hasPageLabels) {
-        opts.pageNumber.type = "text";
-        opts.numPages.setAttribute("data-l10n-id", "pdfjs-page-of-pages");
-      } else {
-        opts.pageNumber.type = "number";
-        opts.numPages.setAttribute("data-l10n-id", "pdfjs-of-pages");
-        opts.numPages.setAttribute("data-l10n-args", JSON.stringify({
-          pagesCount
-        }));
-      }
-      opts.pageNumber.max = pagesCount;
-    }
-    if (this.hasPageLabels) {
-      opts.pageNumber.value = this.pageLabel;
-      opts.numPages.setAttribute("data-l10n-args", JSON.stringify({
-        pageNumber,
-        pagesCount
-      }));
-    } else {
-      opts.pageNumber.value = pageNumber;
-    }
-    opts.previous.disabled = pageNumber <= 1;
-    opts.next.disabled = pageNumber >= pagesCount;
+   //  if (resetNumPages) {
+   //    if (this.hasPageLabels) {
+   //      opts.pageNumber.type = "text";
+   //      opts.numPages.setAttribute("data-l10n-id", "pdfjs-page-of-pages");
+   //    } else {
+   //      opts.pageNumber.type = "number";
+   //      opts.numPages.setAttribute("data-l10n-id", "pdfjs-of-pages");
+   //      opts.numPages.setAttribute("data-l10n-args", JSON.stringify({
+   //        pagesCount
+   //      }));
+   //    }
+   //    opts.pageNumber.max = pagesCount;
+   //  }
+   //  if (this.hasPageLabels) {
+   //    opts.pageNumber.value = this.pageLabel;
+   //    opts.numPages.setAttribute("data-l10n-args", JSON.stringify({
+   //      pageNumber,
+   //      pagesCount
+   //    }));
+   //  } else {
+   //    opts.pageNumber.value = pageNumber;
+   //  }
+   //  opts.previous.disabled = pageNumber <= 1;
+   //  opts.next.disabled = pageNumber >= pagesCount;
     opts.zoomOut.disabled = pageScale <= _ui_utils_js__WEBPACK_IMPORTED_MODULE_1__.MIN_SCALE;
     opts.zoomIn.disabled = pageScale >= _ui_utils_js__WEBPACK_IMPORTED_MODULE_1__.MAX_SCALE;
     let predefinedValueFound = false;
@@ -14099,12 +14106,12 @@ class Toolbar {
       }));
     }
   }
-  updateLoadingIndicatorState(loading = false) {
-    const {
-      pageNumber
-    } = this.#opts;
-    pageNumber.classList.toggle("loading", loading);
-  }
+//   updateLoadingIndicatorState(loading = false) {
+//     const {
+//       pageNumber
+//     } = this.#opts;
+//     pageNumber.classList.toggle("loading", loading);
+//   }
 }
 
 __webpack_async_result__();
@@ -14159,7 +14166,7 @@ __webpack_async_result__();
 /* harmony export */   watchScroll: () => (/* binding */ watchScroll)
 /* harmony export */ });
 /* unused harmony export backtrackBeforeAllVisibleElements */
-const DEFAULT_SCALE_VALUE = "auto";
+const DEFAULT_SCALE_VALUE = "page-fit";
 const DEFAULT_SCALE = 1.0;
 const DEFAULT_SCALE_DELTA = 1.1;
 const MIN_SCALE = 0.1;
@@ -14757,36 +14764,36 @@ function getViewerConfiguration() {
     toolbar: {
       container: document.getElementById("toolbarViewer"),
       numPages: document.getElementById("numPages"),
-      pageNumber: document.getElementById("pageNumber"),
+      // pageNumber: document.getElementById("pageNumber"),
       scaleSelect: document.getElementById("scaleSelect"),
       customScaleOption: document.getElementById("customScaleOption"),
-      previous: document.getElementById("previous"),
-      next: document.getElementById("next"),
+      // previous: document.getElementById("previous"),
+      // next: document.getElementById("next"),
       zoomIn: document.getElementById("zoomIn"),
       zoomOut: document.getElementById("zoomOut"),
       viewFind: document.getElementById("viewFind"),
       print: document.getElementById("print"),
-      editorFreeTextButton: document.getElementById("editorFreeText"),
-      editorFreeTextParamsToolbar: document.getElementById("editorFreeTextParamsToolbar"),
-      editorHighlightButton: document.getElementById("editorHighlight"),
-      editorHighlightParamsToolbar: document.getElementById("editorHighlightParamsToolbar"),
-      editorHighlightColorPicker: document.getElementById("editorHighlightColorPicker"),
-      editorInkButton: document.getElementById("editorInk"),
-      editorInkParamsToolbar: document.getElementById("editorInkParamsToolbar"),
-      editorStampButton: document.getElementById("editorStamp"),
-      editorStampParamsToolbar: document.getElementById("editorStampParamsToolbar"),
+      // editorFreeTextButton: document.getElementById("editorFreeText"),
+      // editorFreeTextParamsToolbar: document.getElementById("editorFreeTextParamsToolbar"),
+      // editorHighlightButton: document.getElementById("editorHighlight"),
+      // editorHighlightParamsToolbar: document.getElementById("editorHighlightParamsToolbar"),
+      // editorHighlightColorPicker: document.getElementById("editorHighlightColorPicker"),
+      // editorInkButton: document.getElementById("editorInk"),
+      // editorInkParamsToolbar: document.getElementById("editorInkParamsToolbar"),
+      // editorStampButton: document.getElementById("editorStamp"),
+      // editorStampParamsToolbar: document.getElementById("editorStampParamsToolbar"),
       download: document.getElementById("download")
     },
     secondaryToolbar: {
       toolbar: document.getElementById("secondaryToolbar"),
       toggleButton: document.getElementById("secondaryToolbarToggle"),
       presentationModeButton: document.getElementById("presentationMode"),
-      openFileButton: document.getElementById("secondaryOpenFile"),
+      // openFileButton: document.getElementById("secondaryOpenFile"),
       printButton: document.getElementById("secondaryPrint"),
       downloadButton: document.getElementById("secondaryDownload"),
       viewBookmarkButton: document.getElementById("viewBookmark"),
-      firstPageButton: document.getElementById("firstPage"),
-      lastPageButton: document.getElementById("lastPage"),
+      // firstPageButton: document.getElementById("firstPage"),
+      // lastPageButton: document.getElementById("lastPage"),
       pageRotateCwButton: document.getElementById("pageRotateCw"),
       pageRotateCcwButton: document.getElementById("pageRotateCcw"),
       cursorSelectToolButton: document.getElementById("cursorSelectTool"),
