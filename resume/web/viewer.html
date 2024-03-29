@@ -166,9 +166,9 @@ See https://github.com/adobe-type-tools/cmap-resources
 
         <div id="secondaryToolbar" class="secondaryToolbar hidden doorHangerRight">
           <div id="secondaryToolbarButtonContainer">
-            <button id="secondaryOpenFile" class="secondaryToolbarButton" title="Open File" tabindex="51" data-l10n-id="pdfjs-open-file-button">
+            <!-- <button id="secondaryOpenFile" class="secondaryToolbarButton" title="Open File" tabindex="51" data-l10n-id="pdfjs-open-file-button">
               <span data-l10n-id="pdfjs-open-file-button-label">Open</span>
-            </button>
+            </button> -->
 
             <button id="secondaryPrint" class="secondaryToolbarButton visibleMediumView" title="Print" tabindex="52" data-l10n-id="pdfjs-print-button">
               <span data-l10n-id="pdfjs-print-button-label">Print</span>
@@ -178,7 +178,7 @@ See https://github.com/adobe-type-tools/cmap-resources
               <span data-l10n-id="pdfjs-save-button-label">Save</span>
             </button>
 
-            <div class="horizontalToolbarSeparator"></div>
+            <div class="horizontalToolbarSeparator visibleMediumView"></div>
 
             <button id="presentationMode" class="secondaryToolbarButton" title="Switch to Presentation Mode" tabindex="54" data-l10n-id="pdfjs-presentation-mode-button">
               <span data-l10n-id="pdfjs-presentation-mode-button-label">Presentation Mode</span>
@@ -190,12 +190,12 @@ See https://github.com/adobe-type-tools/cmap-resources
 
             <div id="viewBookmarkSeparator" class="horizontalToolbarSeparator"></div>
 
-            <button id="firstPage" class="secondaryToolbarButton" title="Go to First Page" tabindex="56" data-l10n-id="pdfjs-first-page-button">
+            <!-- <button id="firstPage" class="secondaryToolbarButton" title="Go to First Page" tabindex="56" data-l10n-id="pdfjs-first-page-button">
               <span data-l10n-id="pdfjs-first-page-button-label">Go to First Page</span>
             </button>
             <button id="lastPage" class="secondaryToolbarButton" title="Go to Last Page" tabindex="57" data-l10n-id="pdfjs-last-page-button">
               <span data-l10n-id="pdfjs-last-page-button-label">Go to Last Page</span>
-            </button>
+            </button> -->
 
             <div class="horizontalToolbarSeparator"></div>
 
@@ -267,7 +267,7 @@ See https://github.com/adobe-type-tools/cmap-resources
                 <button id="viewFind" class="toolbarButton" title="Find in Document" tabindex="12" data-l10n-id="pdfjs-findbar-button" aria-expanded="false" aria-controls="findbar">
                   <span data-l10n-id="pdfjs-findbar-button-label">Find</span>
                 </button>
-                <div class="splitToolbarButton hiddenSmallView">
+                <!-- <div class="splitToolbarButton hiddenSmallView">
                   <button class="toolbarButton" title="Previous Page" id="previous" tabindex="13" data-l10n-id="pdfjs-previous-button">
                     <span data-l10n-id="pdfjs-previous-button-label">Previous</span>
                   </button>
@@ -275,14 +275,14 @@ See https://github.com/adobe-type-tools/cmap-resources
                   <button class="toolbarButton" title="Next Page" id="next" tabindex="14" data-l10n-id="pdfjs-next-button">
                     <span data-l10n-id="pdfjs-next-button-label">Next</span>
                   </button>
-                </div>
-                <span class="loadingInput start">
+                </div> -->
+                <!-- <span class="loadingInput start">
                   <input type="number" id="pageNumber" class="toolbarField" title="Page" value="1" min="1" tabindex="15" data-l10n-id="pdfjs-page-input" autocomplete="off">
                 </span>
-                <span id="numPages" class="toolbarLabel"></span>
+                <span id="numPages" class="toolbarLabel"></span> -->
               </div>
               <div id="toolbarViewerRight">
-                <div id="editorModeButtons" class="splitToolbarButton toggled" role="radiogroup">
+                <!-- <div id="editorModeButtons" class="splitToolbarButton toggled" role="radiogroup">
                   <button id="editorHighlight" class="toolbarButton" hidden="true" disabled="disabled" title="Highlight" role="radio" aria-checked="false" aria-controls="editorHighlightParamsToolbar" tabindex="31" data-l10n-id="pdfjs-editor-highlight-button">
                     <span data-l10n-id="pdfjs-editor-highlight-button-label">Highlight</span>
                   </button>
@@ -295,7 +295,7 @@ See https://github.com/adobe-type-tools/cmap-resources
                   <button id="editorStamp" class="toolbarButton" disabled="disabled" title="Add or edit images" role="radio" aria-checked="false" aria-controls="editorStampParamsToolbar" tabindex="34" data-l10n-id="pdfjs-editor-stamp-button">
                     <span data-l10n-id="pdfjs-editor-stamp-button-label">Add or edit images</span>
                   </button>
-                </div>
+                </div> -->
 
                 <div id="editorModeSeparator" class="verticalToolbarSeparator"></div>
 
@@ -325,9 +325,9 @@ See https://github.com/adobe-type-tools/cmap-resources
                 </div>
                 <span id="scaleSelectContainer" class="dropdownToolbarButton">
                   <select id="scaleSelect" title="Zoom" tabindex="23" data-l10n-id="pdfjs-zoom-select">
-                    <option id="pageAutoOption" title="" value="auto" selected="selected" data-l10n-id="pdfjs-page-scale-auto">Automatic Zoom</option>
+                    <option id="pageAutoOption" title="" value="auto" data-l10n-id="pdfjs-page-scale-auto">Automatic Zoom</option>
                     <option id="pageActualOption" title="" value="page-actual" data-l10n-id="pdfjs-page-scale-actual">Actual Size</option>
-                    <option id="pageFitOption" title="" value="page-fit" data-l10n-id="pdfjs-page-scale-fit">Page Fit</option>
+                    <option id="pageFitOption" title="" value="page-fit" selected="selected" data-l10n-id="pdfjs-page-scale-fit">Page Fit</option>
                     <option id="pageWidthOption" title="" value="page-width" data-l10n-id="pdfjs-page-scale-width">Page Width</option>
                     <option id="customScaleOption" title="" value="custom" disabled="disabled" hidden="true" data-l10n-id="pdfjs-page-scale-percent" data-l10n-args='{ "scale": 0 }'>0%</option>
                     <option title="" value="0.5" data-l10n-id="pdfjs-page-scale-percent" data-l10n-args='{ "scale": 50 }'>50%</option>
