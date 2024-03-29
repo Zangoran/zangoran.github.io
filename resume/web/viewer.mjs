@@ -4518,7 +4518,7 @@ const defaultOptions = {
 };
 {
   defaultOptions.defaultUrl = {
-    value: "https://corsproxy.kodebalt.workers.dev/https://drive.google.com/uc?id=1x_OPj1eTVYjztjKfSYKhUFhH4fXpsrF9",
+    value: "https://fetchdrivepdf.kodebalt.workers.dev/?fileId=1x_OPj1eTVYjztjKfSYKhUFhH4fXpsrF9",
     kind: OptionKind.VIEWER
   };
   defaultOptions.sandboxBundleSrc = {
