@@ -32,21 +32,23 @@ function updateIframeSrc() {
   }
 }
 function handleEvent(event) {
-  const viewerScrollTop = event.target.scrollTop;
-  const viewerScrollHeight = event.target.scrollHeight;
-  const viewerClientHeight = event.target.clientHeight;
-  const pageOffsetY = localStorage.getItem('pageOffsetY');
-  if (viewerScrollTop > 0) {
-    window.dispatchEvent(
-      new CustomEvent('viewerScroll', {
-        detail: {
-          scrollTop: viewerScrollTop,
-          scrollHeight: viewerScrollHeight,
-          clientHeight: viewerClientHeight,
-        },
-      })
-    );
-  }
+  setTimeout(() => {
+    const viewerScrollTop = event.target.scrollTop;
+    const viewerScrollHeight = event.target.scrollHeight;
+    const viewerClientHeight = event.target.clientHeight;
+    const pageOffsetY = localStorage.getItem('pageOffsetY');
+    if (viewerScrollTop > 0) {
+      window.dispatchEvent(
+        new CustomEvent('viewerScroll', {
+          detail: {
+            scrollTop: viewerScrollTop - pageOffsetY,
+            scrollHeight: viewerScrollHeight - pageOffsetY,
+            clientHeight: viewerClientHeight,
+          },
+        })
+      );
+    }
+  }, 1000);
 }
 window.onload = function () {
   debouncedUpdateIframeSrc();
@@ -56,7 +58,6 @@ window.onload = function () {
   const iframe = document.querySelector('#pdfjs');
   if (iframe.contentWindow) {
     const viewerContainer = iframe.contentDocument.querySelector('#viewerContainer');
-    viewerContainer.scrollTo(0, 0);
     viewerContainer.addEventListener('scroll', handleEvent);
     viewerContainer.addEventListener('touchstart', handleEvent);
     viewerContainer.addEventListener('touchend', handleEvent);
