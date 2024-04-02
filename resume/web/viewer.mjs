@@ -9119,6 +9119,28 @@ class PDFPageView {
         });
       }
       this.#renderAnnotationEditorLayer();
+      // Custom: Get scrollbar width after page is rendered
+      function setScrollbarWidth() {
+        function getScrollbarWidth(element, direction) {
+          let scrollbarWidth = 0;
+          switch (direction) {
+            case "vertical":
+              scrollbarWidth = element.offsetWidth - element.clientWidth;
+              break;
+            case "horizontal":
+              scrollbarWidth = element.offsetHeight - element.clientHeight;
+              break;
+          }
+          console.log("setting scrollbar width " + "(" + direction + "): " + scrollbarWidth);
+          return scrollbarWidth;
+        }
+        const viewerContainer = document.querySelector('#viewerContainer');
+        const viewerContainerScrollbarWidthVertical = getScrollbarWidth(viewerContainer, "vertical");
+        localStorage.setItem('verticalScrollbarWidth', viewerContainerScrollbarWidthVertical);
+        const viewerContainerScrollbarWidthHorizontal = getScrollbarWidth(viewerContainer, "horizontal");
+        localStorage.setItem('horizontalScrollbarWidth', viewerContainerScrollbarWidthHorizontal);
+      }
+      setScrollbarWidth();
     }, error => {
       if (!(error instanceof pdfjs_lib__WEBPACK_IMPORTED_MODULE_0__.RenderingCancelledException)) {
         showCanvas?.(true);
@@ -14255,6 +14277,8 @@ function scrollIntoView(element, spot, scrollMatches = false) {
     }
   }
   parent.scrollTop = offsetY;
+  // Custom: Store offsetY to use for animated-md-fab
+  localStorage.setItem('pageOffsetY', Math.abs(offsetY));
 }
 function watchScroll(viewAreaElement, callback) {
   const debounceScroll = function (evt) {

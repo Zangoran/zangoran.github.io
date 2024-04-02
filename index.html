@@ -1,48 +1,47 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <title>Zach The Dev</title>
     <meta name="description" content="Maker of things." />
     <meta name="author" content="ZachTheDev" />
-
-    <title>Zach The Dev</title>
-
-    <link rel="shortcut icon" href="/assets/images/favicon.png" />
-
-    <link rel="stylesheet" type="text/css" href="/assets/css/grain.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg" />
+    <link rel="alternate icon" type="image/png" href="/assets/images/favicon.png" />
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700&display=swap" />
     <link rel="stylesheet" type="text/css" href="/assets/css/styles.css" />
-
-    <link href="https://fonts.googleapis.com/css?family=Outfit" rel="stylesheet" />
-
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KFKGTSXF02"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
       function gtag() {
         dataLayer.push(arguments);
       }
-      gtag('js', new Date());
-      gtag('config', 'G-KFKGTSXF02');
+      (window.dataLayer = window.dataLayer || []), gtag('js', new Date()), gtag('config', 'G-KFKGTSXF02');
     </script>
+    <!-- End Google Analytics -->
   </head>
-
   <body>
-    <img src="/assets/images/Kodebalt.svg" alt="Personal Logo" style="padding-top: 10%" />
-
-    <section id="name">
-      <h1>I'm <span id="zach">zach</span><span id="the">the</span><span id="dev">.dev</span></h1>
+    <img id="logo" src="/assets/images/logo_circle.svg" alt="Personal Logo" />
+    <section id="header" class="section text hidetext">
+      <h1>
+        Hey! I'm
+        <div id="nameBox"><span id="zach">zach</span><span id="the">the</span><span id="dev">.dev</span></div>
+      </h1>
       <h1>and I make stuff</h1>
     </section>
-
-    <section>
-      <p>I'm an aspiring full stack web devloper &amp; student based in Wisconsin.</p>
+    <section class="section">
+      <p class="text hidetext">I'm a web-focused programmer with experience using a variety of languages, platforms, and styles.</p>
+      <p class="text hidetext">I am also Skilled at leveraging a keen eye for detail to produce clever and well-crafted designs whose effort will not be unnoticed.</p>
+      <p class="text hidetext">I am also a quick learner with a strong passion for mastering effective problem-solving techniques.</p>
+      </p>
     </section>
-
-    <section>
-      <p>Find my code on <a href="https://zachthe.dev/github" target="_blank" rel="noopener">GitHub</a>.</p>
-      <p>Send me an <a href="mailto:hey@zachthe.dev?Subject=Hey" rel="noopener">Email</a>.</p>
+    <section class="section">
+      <p class="text hidetext">
+        Find my code on <a class="link" href="https://zachthe.dev/github" target="_blank" rel="noopener">GitHub</a>.
+      </p>
+      <p class="text hidetext">Send me an <a class="link" href="mailto:hey@zachthe.dev?Subject=Hey" rel="noopener">Email</a>.</p>
     </section>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
   </body>
 </html>

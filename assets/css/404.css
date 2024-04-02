@@ -2,21 +2,52 @@
 
 :root {
   --md-ref-typeface-plain: 'Outfit';
-  --md-sys-color-primary: #ffb5a0;
-  --md-sys-color-on-primary: #5f1500;
-  --md-sys-color-secondary: #ffb5a0;
+  --md-sys-color-primary: #b02f00;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary-container: #ff7147;
+  --md-sys-color-on-primary-container: #240400;
+  --md-sys-color-secondary: #9f4125;
+  --md-sys-color-on-secondary: #ffffff;
+  --md-sys-color-secondary-container: #ff9779;
+  --md-sys-color-on-secondary-container: #4f1000;
+  --md-sys-color-surface: #fff8f6;
+  --md-sys-color-on-surface: #271813;
+  --md-sys-color-surface-container: #ffe9e4;
+  --md-sys-color-shadow: #000000;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:where(.is-dark),
+  :root:where(:not(.is-light)) {
+    --md-sys-color-primary: #ffb5a0;
+    --md-sys-color-on-primary: #5f1500;
+    --md-sys-color-primary-container: #d73b00;
+    --md-sys-color-on-primary-container: #ffffff;
+    --md-sys-color-secondary: #ffb5a0;
+    --md-sys-color-on-secondary: #5f1500;
+    --md-sys-color-secondary-container: #732107;
+    --md-sys-color-on-secondary-container: #ffc4b4;
+    --md-sys-color-surface: #1e100c;
+    --md-sys-color-on-surface: #fadcd4;
+    --md-sys-color-surface-container: #2c1c17;
+    --md-sys-color-shadow: #000000;
+  }
 }
 
 * {
-  transition: 0.5s cubic-bezier(0.3, 0, 0, 1);
+  transition: 450ms cubic-bezier(0.2, 0, 0, 1);
   transition-property: margin, height, border-radius, max-width, width;
 }
 
+html {
+  background-color: var(--md-sys-color-surface-container);
+  scrollbar-color: var(--md-sys-color-primary) transparent;
+  scrollbar-width: thin;
+}
+
 body {
-  background-color: #2c1c17;
   height: 100vh;
   height: 100svh;
-  /* overflow: hidden; */
 }
 
 /* Styles for phones */
@@ -115,7 +146,7 @@ body {
 }
 
 .text {
-  color: #ffb5a0;
+  color: var(--md-sys-color-primary);
   font-family: 'Outfit', sans-serif;
 }
 
@@ -132,13 +163,12 @@ body {
 }
 
 .box {
-  background-color: #1e100c;
+  background-color: var(--md-sys-color-surface);
   border-radius: 2vmax;
 }
 
 #header {
   font-weight: 700;
-  /* width: max-content; */
   padding-bottom: 1.5vmax;
 }
 
