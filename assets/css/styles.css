@@ -118,7 +118,7 @@ p {
 /* Styles for phones */
 @media only screen and (max-width: 767px) {  
   #header {
-    font-size: 2.5rem;
+    font-size: 2.25rem;
     flex-direction: column;
   }
 
@@ -146,7 +146,7 @@ p {
 
 #nameBox {
   margin: 1vmax;
-  padding: 1vmax;
+  padding: 1vmax 3vmax;
   background-color: #1e100c;
   border-radius: 2vmax;
   width: max-content;
