@@ -2,165 +2,20 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>ZachTheDev: Resume</title>
+    <title>Zach The Dev: Resume</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Zach The Dev: Resume" />
+    <meta name="description" content="Zach The Dev: View my resume using this modified PDF.js viewer." />
     <link rel="icon" href="/assets/images/favicon.png" type="image/png" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;500;700&display=swap" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet" />
-    <style>
-      :root {
-        --md-ref-typeface-plain: 'Outfit';
-        --md-sys-color-primary: #b02f00;
-        --md-sys-color-on-primary: #ffffff;
-        --md-sys-color-primary-container: #ff7147;
-        --md-sys-color-on-primary-container: #240400;
-        --md-sys-color-secondary: #9f4125;
-        --md-sys-color-on-secondary: #ffffff;
-        --md-sys-color-secondary-container: #ff9779;
-        --md-sys-color-on-secondary-container: #4f1000;
-        --md-sys-color-surface: #fff8f6;
-        --md-sys-color-on-surface: #271813;
-        --md-sys-color-surface-container: #ffe9e4;
-        --md-sys-color-shadow: #000000;
-
-        --animated-md-fab-scale-factor: 1.25;
-      }
-
-      @media (prefers-color-scheme: dark) {
-        :root:where(.is-dark),
-        :root:where(:not(.is-light)) {
-          --md-sys-color-primary: #ffb5a0;
-          --md-sys-color-on-primary: #5f1500;
-          --md-sys-color-primary-container: #d73b00;
-          --md-sys-color-on-primary-container: #ffffff;
-          --md-sys-color-secondary: #ffb5a0;
-          --md-sys-color-on-secondary: #5f1500;
-          --md-sys-color-secondary-container: #732107;
-          --md-sys-color-on-secondary-container: #ffc4b4;
-          --md-sys-color-surface: #1e100c;
-          --md-sys-color-on-surface: #fadcd4;
-          --md-sys-color-surface-container: #2c1c17;
-          --md-sys-color-shadow: #000000;
-        }
-      }
-
-      * {
-        transition: 450ms cubic-bezier(0.2, 0, 0, 1);
-        transition-property: margin, height, border-radius, max-width, width;
-      }
-
-      html,
-      body {
-        font-family: Outfit, sans-serif;
-        background-color: var(--body-bg-color);
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        box-sizing: border-box;
-      }
-
-      .container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-      }
-
-      .iframe-wrapper {
-        flex: 1;
-        display: flex;
-        width: 100%;
-      }
-
-      iframe {
-        width: 100%;
-        height: 100%;
-        border: none;
-        box-sizing: border-box;
-      }
-
-      animated-md-fab {
-        transform-origin: bottom right;
-        transform: scale(var(--animated-md-fab-scale-factor));
-        position: fixed;
-        bottom: calc((16px * var(--animated-md-fab-scale-factor)) + var(--horizontal-scrollbar-width, 0px));
-        right: calc((16px * var(--animated-md-fab-scale-factor)) + var(--vertical-scrollbar-width, 0px));
-      }
-    </style>
-    <script>
-      function debounce(func, wait) {
-        var timeout;
-        return function () {
-          var context = this;
-          var args = arguments;
-          clearTimeout(timeout);
-          timeout = setTimeout(function () {
-            func.apply(context, args);
-          }, wait);
-        };
-      }
-      var debouncedUpdateIframeSrc = debounce(updateIframeSrc, 50);
-      function isMobileLandscape() {
-        const isLargeLandscape = window.innerWidth > window.innerHeight && window.matchMedia('(min-aspect-ratio: 16/9)').matches;
-        const isTouchDevice = !!('ontouchstart' in window);
-        return isLargeLandscape && (isTouchDevice || isMobileUserAgent());
-      }
-      function isMobileUserAgent() {
-        return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-      }
-      function updateIframeSrc() {
-        var iframe = document.querySelector('#pdfjs');
-        var initialSrc = iframe.getAttribute('data-initial-src');
-        var newSrc;
-        if (isMobileLandscape()) {
-          newSrc = initialSrc + '#zoom=page-width';
-        } else {
-          newSrc = initialSrc + '#zoom=page-fit';
-        }
-        if (iframe.src !== newSrc) {
-          iframe.src = newSrc;
-        }
-      }
-      window.onload = function () {
-        debouncedUpdateIframeSrc();
-        window.addEventListener('resize', function () {
-          debouncedUpdateIframeSrc();
-        });
-        const iframe = document.querySelector('#pdfjs');
-        if (iframe.contentWindow) {
-          const viewerContainer = iframe.contentDocument.querySelector('#viewerContainer');
-          viewerContainer.scrollTo(0, 0);
-          viewerContainer.addEventListener('scroll', (event) => {
-            const viewerScrollTop = event.target.scrollTop;
-            const viewerScrollHeight = event.target.scrollHeight;
-            const viewerClientHeight = event.target.clientHeight;
-            const pageOffsetY = localStorage.getItem('pageOffsetY');
-            if (viewerScrollTop > 0) {
-              window.dispatchEvent(
-                new CustomEvent('viewerScroll', {
-                  detail: {
-                    scrollTop: viewerScrollTop - pageOffsetY,
-                    scrollHeight: viewerScrollHeight - pageOffsetY,
-                    clientHeight: viewerClientHeight,
-                  },
-                })
-              );
-            }
-          });
-        } else {
-          console.warn('Iframe has different origin.');
-        }
-      };
-    </script>
+    <link rel="stylesheet" href="./index.css" />
   </head>
   <body>
     <div class="container">
       <div class="iframe-wrapper">
         <iframe id="pdfjs" src="/resume/web/viewer.html" data-initial-src="/resume/web/viewer.html" title="PDF Viewer">
-          Your browser doesn't support iframes
+          Ope! Your browser doesn't support iframes.
         </iframe>
       </div>
     </div>
@@ -168,42 +23,6 @@
       <md-icon id="icon" slot="icon">home</md-icon>
     </animated-md-fab>
     <script type="module" src="/components/material-components/bundled.min.js"></script>
-    <script>
-      localStorage.removeItem('verticalScrollbarWidth');
-      localStorage.removeItem('horizontalScrollbarWidth');
-      const fab = document.body.querySelector('#fab');
-      fab.addEventListener('click', () => {
-        window.location.href = '/';
-      });
-      function addRootVariable(variableName, value) {
-        const styleSheet = document.styleSheets[2];
-        if (styleSheet) {
-          let rootRuleIndex = -1;
-          for (let i = 0; i < styleSheet.cssRules.length; i++) {
-            if (styleSheet.cssRules[i].selectorText === ':root') {
-              rootRuleIndex = i;
-              break;
-            }
-          }
-          if (rootRuleIndex !== -1) {
-            styleSheet.cssRules[rootRuleIndex].style.setProperty(variableName, value);
-          } else {
-            styleSheet.insertRule(`:root { ${variableName}: ${value}; }`, styleSheet.cssRules.length);
-          }
-        } else {
-          console.error('StyleSheet not found.');
-        }
-      }
-      function handleStorageChange(event) {
-        if (event.key === 'verticalScrollbarWidth') {
-          const verticalScrollbarWidth = localStorage.getItem('verticalScrollbarWidth');
-          addRootVariable('--vertical-scrollbar-width', `${verticalScrollbarWidth}px`);
-        } else if (event.key === 'horizontalScrollbarWidth') {
-          const horizontalScrollbarWidth = localStorage.getItem('horizontalScrollbarWidth');
-          addRootVariable('--horizontal-scrollbar-width', `${horizontalScrollbarWidth}px`);
-        }
-      }
-      window.addEventListener('storage', handleStorageChange);
-    </script>
+    <script type="text/javascript" src="./index.js"></script>
   </body>
 </html>
