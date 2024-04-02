@@ -42,7 +42,7 @@ function handleEvent(event) {
         detail: {
           scrollTop: viewerScrollTop - pageOffsetY,
           scrollHeight: viewerScrollHeight - pageOffsetY,
-          clientHeight: viewerClientHeight,
+          clientHeight: viewerClientHeight - pageOffsetY,
         },
       })
     );
