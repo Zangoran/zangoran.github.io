@@ -75,7 +75,7 @@ p {
   padding: 10vmax 0 20vmax 0;
   position: absolute;
   z-index: 0;
-  filter: blur(100px);
+  filter: blur(10vmax);
 }
 
 #logo {
