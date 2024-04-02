@@ -32,23 +32,21 @@ function updateIframeSrc() {
   }
 }
 function handleEvent(event) {
-  setTimeout(() => {
-    const viewerScrollTop = event.target.scrollTop;
-    const viewerScrollHeight = event.target.scrollHeight;
-    const viewerClientHeight = event.target.clientHeight;
-    const pageOffsetY = localStorage.getItem('pageOffsetY');
-    if (viewerScrollTop > 0) {
-      window.dispatchEvent(
-        new CustomEvent('viewerScroll', {
-          detail: {
-            scrollTop: viewerScrollTop - pageOffsetY,
-            scrollHeight: viewerScrollHeight - pageOffsetY,
-            clientHeight: viewerClientHeight,
-          },
-        })
-      );
-    }
-  }, 1000);
+  const viewerScrollTop = event.target.scrollTop;
+  const viewerScrollHeight = event.target.scrollHeight;
+  const viewerClientHeight = event.target.clientHeight;
+  const pageOffsetY = localStorage.getItem('pageOffsetY');
+  if (viewerScrollTop > 0) {
+    window.dispatchEvent(
+      new CustomEvent('viewerScroll', {
+        detail: {
+          scrollTop: viewerScrollTop - pageOffsetY,
+          scrollHeight: viewerScrollHeight - pageOffsetY,
+          clientHeight: viewerClientHeight,
+        },
+      })
+    );
+  }
 }
 window.onload = function () {
   debouncedUpdateIframeSrc();
