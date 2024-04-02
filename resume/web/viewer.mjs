@@ -9131,7 +9131,6 @@ class PDFPageView {
               scrollbarWidth = element.offsetHeight - element.clientHeight;
               break;
           }
-          console.log("setting scrollbar width " + "(" + direction + "): " + scrollbarWidth);
           return scrollbarWidth;
         }
         const viewerContainer = document.querySelector('#viewerContainer');
