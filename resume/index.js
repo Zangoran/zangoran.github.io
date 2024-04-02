@@ -31,6 +31,23 @@ function updateIframeSrc() {
     iframe.src = newSrc;
   }
 }
+function handleEvent(event) {
+  const viewerScrollTop = event.target.scrollTop;
+  const viewerScrollHeight = event.target.scrollHeight;
+  const viewerClientHeight = event.target.clientHeight;
+  const pageOffsetY = localStorage.getItem('pageOffsetY');
+  if (viewerScrollTop > 0) {
+    window.dispatchEvent(
+      new CustomEvent('viewerScroll', {
+        detail: {
+          scrollTop: viewerScrollTop - pageOffsetY,
+          scrollHeight: viewerScrollHeight - pageOffsetY,
+          clientHeight: viewerClientHeight,
+        },
+      })
+    );
+  }
+}
 window.onload = function () {
   debouncedUpdateIframeSrc();
   window.addEventListener('resize', function () {
@@ -40,23 +57,9 @@ window.onload = function () {
   if (iframe.contentWindow) {
     const viewerContainer = iframe.contentDocument.querySelector('#viewerContainer');
     viewerContainer.scrollTo(0, 0);
-    viewerContainer.addEventListener('scroll', (event) => {
-      const viewerScrollTop = event.target.scrollTop;
-      const viewerScrollHeight = event.target.scrollHeight;
-      const viewerClientHeight = event.target.clientHeight;
-      const pageOffsetY = localStorage.getItem('pageOffsetY');
-      if (viewerScrollTop > 0) {
-        window.dispatchEvent(
-          new CustomEvent('viewerScroll', {
-            detail: {
-              scrollTop: viewerScrollTop - pageOffsetY,
-              scrollHeight: viewerScrollHeight - pageOffsetY,
-              clientHeight: viewerClientHeight,
-            },
-          })
-        );
-      }
-    });
+    viewerContainer.addEventListener('scroll', handleEvent);
+    viewerContainer.addEventListener('touchstart', handleEvent);
+    viewerContainer.addEventListener('touchend', handleEvent);
   } else {
     console.warn('Iframe has different origin.');
   }
