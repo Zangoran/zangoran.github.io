@@ -40,9 +40,9 @@ function handleEvent(event) {
     window.dispatchEvent(
       new CustomEvent('viewerScroll', {
         detail: {
-          scrollTop: viewerScrollTop - pageOffsetY,
-          scrollHeight: viewerScrollHeight - pageOffsetY,
-          clientHeight: viewerClientHeight - pageOffsetY,
+          scrollTop: viewerScrollTop,
+          scrollHeight: viewerScrollHeight,
+          clientHeight: viewerClientHeight,
         },
       })
     );
