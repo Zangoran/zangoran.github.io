@@ -71,9 +71,20 @@ p {
   margin-bottom: 1rem;
 }
 
+#logoGlow {
+  width: 30vmax;
+  padding: 10vmax 0 20vmax 0;
+  position: absolute;
+  z-index: 0;
+  filter: blur(100px);
+}
+
 #logo {
   width: 30vmax;
   padding: 10vmax 0 20vmax 0;
+  position: relative;
+  z-index: 1;
+  border-radius: 20px;
 }
 
 .hidetext {
