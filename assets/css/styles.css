@@ -116,7 +116,7 @@ p {
 }
 
 /* Styles for phones */
-@media only screen and (max-width: 767px) {  
+@media only screen and (max-width: 767px) {
   #header {
     font-size: 2.25rem;
     flex-direction: column;
