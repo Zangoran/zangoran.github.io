@@ -1,7 +1,7 @@
 function revertVisibility() {
-  var elements = document.getElementsByClassName('text');
+  var elements = document.getElementsByClassName("text");
   for (var element of elements) {
-    element.classList.remove('hidetext');
+    element.classList.remove("hidetext");
   }
 }
 
@@ -9,6 +9,6 @@ function init() {
   revertVisibility();
 }
 
-window.addEventListener('load', (event) => {
+window.addEventListener("load", (event) => {
   init();
 });

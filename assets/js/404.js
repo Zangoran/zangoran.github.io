@@ -1,8 +1,8 @@
 function getTextWidth(element) {
   var clone = element.cloneNode(true);
-  clone.style.position = 'absolute';
-  clone.style.visibility = 'hidden';
-  clone.style.display = 'inline';
+  clone.style.position = "absolute";
+  clone.style.visibility = "hidden";
+  clone.style.display = "inline";
   document.body.appendChild(clone);
   var width = clone.getBoundingClientRect().width;
   document.body.removeChild(clone);
@@ -10,16 +10,16 @@ function getTextWidth(element) {
 }
 
 function adjustWidth() {
-  var header = document.getElementById('header');
-  var subheaderContainer = document.getElementById('subheaderContainer');
+  var header = document.getElementById("header");
+  var subheaderContainer = document.getElementById("subheaderContainer");
   var headerTextWidth = getTextWidth(header);
-  subheaderContainer.style.width = headerTextWidth + 'px';
+  subheaderContainer.style.width = headerTextWidth + "px";
 }
 
 function revertVisibility() {
-  var elements = document.getElementsByClassName('text');
+  var elements = document.getElementsByClassName("text");
   for (var element of elements) {
-    element.classList.remove('hidetext');
+    element.classList.remove("hidetext");
   }
 }
 
@@ -30,9 +30,9 @@ function init(firstRun) {
   }
 }
 
-window.addEventListener('load', (event) => {
+window.addEventListener("load", (event) => {
   init(true);
 });
-window.addEventListener('resize', (event) => {
+window.addEventListener("resize", (event) => {
   init(false);
 });
