@@ -14446,15 +14446,10 @@
         }
       }
       parent.scrollTop = offsetY;
-      console.log("offsetY: " + offsetY);
       // Custom: Store offsetY to use for animated-md-fab
       if (!sessionStorage.getItem("pageOffsetY")) {
         sessionStorage.setItem("pageOffsetY", Math.abs(offsetY));
       }
-      window.addEventListener("resize", function () {
-        console.log("resize, set to: " + Math.abs(offsetY));
-        sessionStorage.setItem("pageOffsetY", Math.abs(offsetY));
-      });
     }
     function watchScroll(viewAreaElement, callback) {
       const debounceScroll = function (evt) {

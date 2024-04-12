@@ -93,3 +93,7 @@ function handleStorageChange(event) {
   }
 }
 window.addEventListener("storage", handleStorageChange);
+
+window.addEventListener("beforeunload", function () {
+  sessionStorage.clear();
+});
