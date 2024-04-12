@@ -36,6 +36,21 @@ function handleMoveEvent(event) {
   const viewerScrollHeight = event.target.scrollHeight;
   const viewerClientHeight = event.target.clientHeight;
   const pageOffsetY = localStorage.getItem("pageOffsetY");
+  console.log("Start move");
+  console.log("");
+  console.log("viewerScrollTop: " + viewerScrollTop);
+  console.log("viewerScrollHeight: " + viewerScrollHeight);
+  console.log("viewerClientHeight: " + viewerClientHeight);
+  console.log("pageOffsetY: " + pageOffsetY);
+  console.log("");
+  console.log("scrollTop: viewerScrollTop - pageOffsetY");
+  console.log("scrollTop: " + viewerScrollTop + " - " + pageOffsetY);
+  console.log("scrollHeight: viewerScrollHeight - pageOffsetY");
+  console.log("scrollHeight: " + viewerScrollHeight + " - " + pageOffsetY);
+  console.log("clientHeight: viewerClientHeight");
+  console.log("clientHeight: " + viewerClientHeight);
+  console.log("");
+  console.log("End move");
   window.dispatchEvent(
     new CustomEvent("viewerScroll", {
       detail: {
