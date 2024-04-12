@@ -31,7 +31,7 @@ function updateIframeSrc() {
     iframe.src = newSrc;
   }
 }
-function handleEvent(event) {
+function handleMoveEvent(event) {
   const viewerScrollTop = event.target.scrollTop;
   const viewerScrollHeight = event.target.scrollHeight;
   const viewerClientHeight = event.target.clientHeight;
@@ -56,9 +56,9 @@ window.onload = function () {
   const iframe = document.querySelector("#pdfjs");
   if (iframe.contentWindow) {
     const viewerContainer = iframe.contentDocument.querySelector("#viewerContainer");
-    viewerContainer.addEventListener("scroll", handleEvent);
-    viewerContainer.addEventListener("touchstart", handleEvent);
-    viewerContainer.addEventListener("touchend", handleEvent);
+    viewerContainer.addEventListener("scroll", handleMoveEvent);
+    // viewerContainer.addEventListener("touchstart", handleMoveEvent);
+    // viewerContainer.addEventListener("touchend", handleMoveEvent);
   } else {
     console.warn("Iframe has different origin.");
   }
