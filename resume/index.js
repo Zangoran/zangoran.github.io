@@ -47,6 +47,7 @@ function handleMoveEvent(event) {
   );
 }
 window.onload = function () {
+  sessionStorage.clear();
   debouncedUpdateIframeSrc();
   window.addEventListener("resize", function () {
     debouncedUpdateIframeSrc();
@@ -93,7 +94,3 @@ function handleStorageChange(event) {
   }
 }
 window.addEventListener("storage", handleStorageChange);
-
-window.addEventListener("beforeunload", function () {
-  sessionStorage.clear();
-});
