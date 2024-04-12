@@ -22,12 +22,11 @@ function updateIframeSrc() {
   var iframe = document.querySelector("#pdfjs");
   var initialSrc = iframe.getAttribute("data-initial-src");
   var newSrc;
-  // if (isMobileLandscape()) {
-  //   newSrc = initialSrc + "#zoom=page-width";
-  // } else {
-  //   newSrc = initialSrc + "#zoom=page-fit";
-  // }
-  newSrc = initialSrc + "#zoom=page-width"; // TODO remove and uncomment above snippet, just for testing
+  if (isMobileLandscape()) {
+    newSrc = initialSrc + "#zoom=page-width";
+  } else {
+    newSrc = initialSrc + "#zoom=page-fit";
+  }
   if (iframe.src !== newSrc) {
     iframe.src = newSrc;
   }
@@ -37,21 +36,6 @@ function handleMoveEvent(event) {
   const viewerScrollHeight = event.target.scrollHeight;
   const viewerClientHeight = event.target.clientHeight;
   const pageOffsetY = sessionStorage.getItem("pageOffsetY");
-  console.log("Start move");
-  console.log("");
-  console.log("viewerScrollTop: " + viewerScrollTop);
-  console.log("viewerScrollHeight: " + viewerScrollHeight);
-  console.log("viewerClientHeight: " + viewerClientHeight);
-  console.log("pageOffsetY: " + pageOffsetY);
-  console.log("");
-  console.log("scrollTop: viewerScrollTop - pageOffsetY");
-  console.log("scrollTop: " + viewerScrollTop + " - " + pageOffsetY);
-  console.log("scrollHeight: viewerScrollHeight - pageOffsetY");
-  console.log("scrollHeight: " + viewerScrollHeight + " - " + pageOffsetY);
-  console.log("clientHeight: viewerClientHeight");
-  console.log("clientHeight: " + viewerClientHeight);
-  console.log("");
-  console.log("End move");
   window.dispatchEvent(
     new CustomEvent("viewerScroll", {
       detail: {
@@ -71,8 +55,6 @@ window.onload = function () {
   if (iframe.contentWindow) {
     const viewerContainer = iframe.contentDocument.querySelector("#viewerContainer");
     viewerContainer.addEventListener("scroll", handleMoveEvent);
-    // viewerContainer.addEventListener("touchstart", handleMoveEvent);
-    // viewerContainer.addEventListener("touchend", handleMoveEvent);
   } else {
     console.warn("Iframe has different origin.");
   }
