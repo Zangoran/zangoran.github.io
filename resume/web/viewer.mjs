@@ -9135,9 +9135,9 @@ class PDFPageView {
         }
         const viewerContainer = document.querySelector('#viewerContainer');
         const viewerContainerScrollbarWidthVertical = getScrollbarWidth(viewerContainer, "vertical");
-        localStorage.setItem('verticalScrollbarWidth', viewerContainerScrollbarWidthVertical);
+        sessionStorage.setItem('verticalScrollbarWidth', viewerContainerScrollbarWidthVertical);
         const viewerContainerScrollbarWidthHorizontal = getScrollbarWidth(viewerContainer, "horizontal");
-        localStorage.setItem('horizontalScrollbarWidth', viewerContainerScrollbarWidthHorizontal);
+        sessionStorage.setItem('horizontalScrollbarWidth', viewerContainerScrollbarWidthHorizontal);
       }
       setScrollbarWidth();
     }, error => {
@@ -12939,7 +12939,7 @@ class SecondaryToolbar {
       element: options.viewBookmarkButton,
       eventName: null,
       close: true
-    }, 
+    },
    //  {
    //    element: options.firstPageButton,
    //    eventName: "firstpage",
@@ -12949,7 +12949,7 @@ class SecondaryToolbar {
    //    element: options.lastPageButton,
    //    eventName: "lastpage",
    //    close: true
-   //  }, 
+   //  },
     {
       element: options.pageRotateCwButton,
       eventName: "rotatecw",
@@ -13895,7 +13895,7 @@ class Toolbar {
    //  }, {
    //    element: options.next,
    //    eventName: "nextpage"
-   //  }, 
+   //  },
     {
       element: options.zoomIn,
       eventName: "zoomin"
@@ -14277,7 +14277,9 @@ function scrollIntoView(element, spot, scrollMatches = false) {
   }
   parent.scrollTop = offsetY;
   // Custom: Store offsetY to use for animated-md-fab
-  localStorage.setItem('pageOffsetY', Math.abs(offsetY));
+  if (!sessionStorage.getItem('pageOffsetY')) {
+    sessionStorage.setItem('pageOffsetY', Math.abs(offsetY));
+  }
 }
 function watchScroll(viewAreaElement, callback) {
   const debounceScroll = function (evt) {
@@ -15019,7 +15021,7 @@ __webpack_async_result__();
 /************************************************************************/
 /******/ // The module cache
 /******/ var __webpack_module_cache__ = {};
-/******/ 
+/******/
 /******/ // The require function
 /******/ function __webpack_require__(moduleId) {
 /******/ 	// Check if module is in cache
@@ -15033,14 +15035,14 @@ __webpack_async_result__();
 /******/ 		// no module.loaded needed
 /******/ 		exports: {}
 /******/ 	};
-/******/ 
+/******/
 /******/ 	// Execute the module function
 /******/ 	__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
-/******/ 
+/******/
 /******/ 	// Return the exports of the module
 /******/ 	return module.exports;
 /******/ }
-/******/ 
+/******/
 /************************************************************************/
 /******/ /* webpack/runtime/async module */
 /******/ (() => {
@@ -15110,7 +15112,7 @@ __webpack_async_result__();
 /******/ 		queue && queue.d < 0 && (queue.d = 0);
 /******/ 	};
 /******/ })();
-/******/ 
+/******/
 /******/ /* webpack/runtime/define property getters */
 /******/ (() => {
 /******/ 	// define getter functions for harmony exports
@@ -15122,14 +15124,14 @@ __webpack_async_result__();
 /******/ 		}
 /******/ 	};
 /******/ })();
-/******/ 
+/******/
 /******/ /* webpack/runtime/hasOwnProperty shorthand */
 /******/ (() => {
 /******/ 	__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ })();
-/******/ 
+/******/
 /************************************************************************/
-/******/ 
+/******/
 /******/ // startup
 /******/ // Load entry module and return exports
 /******/ // This entry module used 'module' so it can't be inlined
@@ -15139,6 +15141,6 @@ __webpack_async_result__();
 /******/ var __webpack_exports__PDFViewerApplicationConstants = __webpack_exports__.PDFViewerApplicationConstants;
 /******/ var __webpack_exports__PDFViewerApplicationOptions = __webpack_exports__.PDFViewerApplicationOptions;
 /******/ export { __webpack_exports__PDFViewerApplication as PDFViewerApplication, __webpack_exports__PDFViewerApplicationConstants as PDFViewerApplicationConstants, __webpack_exports__PDFViewerApplicationOptions as PDFViewerApplicationOptions };
-/******/ 
+/******/
 
 //# sourceMappingURL=viewer.mjs.map

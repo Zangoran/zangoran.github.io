@@ -22,11 +22,12 @@ function updateIframeSrc() {
   var iframe = document.querySelector("#pdfjs");
   var initialSrc = iframe.getAttribute("data-initial-src");
   var newSrc;
-  if (isMobileLandscape()) {
-    newSrc = initialSrc + "#zoom=page-width";
-  } else {
-    newSrc = initialSrc + "#zoom=page-fit";
-  }
+  // if (isMobileLandscape()) {
+  //   newSrc = initialSrc + "#zoom=page-width";
+  // } else {
+  //   newSrc = initialSrc + "#zoom=page-fit";
+  // }
+  newSrc = initialSrc + "#zoom=page-width"; // TODO remove and uncomment above snippet, just for testing
   if (iframe.src !== newSrc) {
     iframe.src = newSrc;
   }
@@ -35,7 +36,7 @@ function handleMoveEvent(event) {
   const viewerScrollTop = event.target.scrollTop;
   const viewerScrollHeight = event.target.scrollHeight;
   const viewerClientHeight = event.target.clientHeight;
-  const pageOffsetY = localStorage.getItem("pageOffsetY");
+  const pageOffsetY = sessionStorage.getItem("pageOffsetY");
   console.log("Start move");
   console.log("");
   console.log("viewerScrollTop: " + viewerScrollTop);
@@ -77,8 +78,6 @@ window.onload = function () {
   }
 };
 
-localStorage.removeItem("verticalScrollbarWidth");
-localStorage.removeItem("horizontalScrollbarWidth");
 const fab = document.body.querySelector("#fab");
 fab.addEventListener("click", () => {
   window.location.href = "/";
@@ -104,10 +103,10 @@ function addRootVariable(variableName, value) {
 }
 function handleStorageChange(event) {
   if (event.key === "verticalScrollbarWidth") {
-    const verticalScrollbarWidth = localStorage.getItem("verticalScrollbarWidth");
+    const verticalScrollbarWidth = sessionStorage.getItem("verticalScrollbarWidth");
     addRootVariable("--vertical-scrollbar-width", `${verticalScrollbarWidth}px`);
   } else if (event.key === "horizontalScrollbarWidth") {
-    const horizontalScrollbarWidth = localStorage.getItem("horizontalScrollbarWidth");
+    const horizontalScrollbarWidth = sessionStorage.getItem("horizontalScrollbarWidth");
     addRootVariable("--horizontal-scrollbar-width", `${horizontalScrollbarWidth}px`);
   }
 }
