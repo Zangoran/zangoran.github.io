@@ -36,7 +36,7 @@ function handleEvent(event) {
   const viewerScrollHeight = event.target.scrollHeight;
   const viewerClientHeight = event.target.clientHeight;
   const pageOffsetY = localStorage.getItem("pageOffsetY");
-  if (viewerScrollTop > 0) {
+  if (viewerScrollTop >= 0) {
     window.dispatchEvent(
       new CustomEvent("viewerScroll", {
         detail: {
