@@ -1,0 +1,56 @@
+==================================================================
+https://keybase.io/zachthedev
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://zachthe.dev
+  * I am zachthedev (https://keybase.io/zachthedev) on keybase.
+  * I have a public key ASB1HdArgZ5g-7Z677msEYC-Y3xJpoC80MjgsHFdmlem8wo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0120751dd02b819e60fbb67aefb9ac1180be637c49a680bcd0c8e0b0715d9a57a6f30a",
+      "host": "keybase.io",
+      "kid": "0120751dd02b819e60fbb67aefb9ac1180be637c49a680bcd0c8e0b0715d9a57a6f30a",
+      "uid": "9191c7cf51d02dd5eea0e284e4fa7819",
+      "username": "zachthedev"
+    },
+    "merkle_root": {
+      "ctime": 1720473719,
+      "hash": "3d9e47c2bd7b24ef1abe5529b68954988b826ff58c831ce7a38a41bd9939260620ae95c0c074581b7c03092cf3a3a23c0d1a7300a945b49c3594d694b98a10b8",
+      "hash_meta": "febdf9ed254b4b4f3d29d58c98c07795d17fe0e614951478e8ff7b6aef2cf453",
+      "seqno": 25902938
+    },
+    "service": {
+      "entropy": "RQ4b5rQ/N/Gup+skISuv5jQb",
+      "hostname": "zachthe.dev",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "6.3.1"
+  },
+  "ctime": 1720473733,
+  "expire_in": 504576000,
+  "prev": "5f5829df702fe93d68323ba4bcea683dd1f155745fde5d9caf222611ff45f33e",
+  "seqno": 163,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgdR3QK4GeYPu2eu+5rBGAvmN8SaaAvNDI4LBxXZpXpvMKp3BheWxvYWTES5cCzKPEIF9YKd9wL+k9aDI7pLzqaD3R8VV0X95dnK8iJhH/RfM+xCAwuafzgUw/wr+RZO4g3LrQJB/sHOCXFAir60AxgipwOgIBwqNzaWfEQJIieIu/zgZU6suncF2KWliVug/MJNOLysQIDWGNy+9UocDATVtopW2LmuTmnaBKxYWMERax4NWLGmr/7FVN/ACoc2lnX3R5cGUgpGhhc2iCpHR5cGUIpXZhbHVlxCA9K5vjmV3JIkTOmUh+QZ8etjq0uNYEp1RxpqchyfPquaN0YWfNAgKndmVyc2lvbgE=
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/zachthedev
+
+==================================================================
