@@ -1,38 +1,24 @@
-function getTextWidth(element) {
-  var clone = element.cloneNode(true);
-  clone.style.position = "absolute";
-  clone.style.visibility = "hidden";
-  clone.style.display = "inline";
-  document.body.appendChild(clone);
-  var width = clone.getBoundingClientRect().width;
-  document.body.removeChild(clone);
-  return width;
+import { revertVisibility } from "./shared.js";
+
+function getTextRect(containerNode) {
+  let textRect;
+  let textRange = document.createRange();
+  textRange.selectNodeContents(containerNode);
+  textRect = textRange.getBoundingClientRect();
+  textRange.detach();
+  return textRect;
 }
 
-function adjustWidth() {
-  var header = document.getElementById("header");
-  var subheaderContainer = document.getElementById("subheaderContainer");
-  var headerTextWidth = getTextWidth(header);
-  subheaderContainer.style.width = headerTextWidth + "px";
+function resizeSubheader() {
+  const container = document.getElementById("header");
+  const textRect = getTextRect(container);
+  document.getElementById("subheaderContainer").style.width = textRect.width + "px";
 }
 
-function revertVisibility() {
-  var elements = document.getElementsByClassName("text");
-  for (var element of elements) {
-    element.classList.remove("hidetext");
-  }
-}
-
-function init(firstRun) {
-  adjustWidth();
-  if (firstRun) {
-    revertVisibility();
-  }
-}
-
-window.addEventListener("load", (event) => {
-  init(true);
+window.addEventListener("load", () => {
+  revertVisibility();
+  resizeSubheader();
 });
-window.addEventListener("resize", (event) => {
-  init(false);
+window.addEventListener("resize", () => {
+  resizeSubheader();
 });

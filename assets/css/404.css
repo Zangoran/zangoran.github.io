@@ -50,6 +50,19 @@ body {
   height: 100svh;
 }
 
+.hidetext {
+  opacity: 0;
+}
+
+#centered {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
 /* Styles for phones */
 @media only screen and (max-width: 480px) {
   .box {
@@ -64,8 +77,12 @@ body {
     font-size: 1.5vmax;
   }
 
-  #copyright {
-    font-size: 1.75vmax;
+  #text404 {
+    font-size: 1.25vmax;
+  }
+
+  #button {
+    transform: initial;
   }
 }
 
@@ -83,8 +100,8 @@ body {
     font-size: 1.5vmax;
   }
 
-  #copyright {
-    font-size: 2.125vmax;
+  #button {
+    transform: initial;
   }
 }
 
@@ -102,8 +119,8 @@ body {
     font-size: 1.6vmax;
   }
 
-  #copyright {
-    font-size: 1.875vmax;
+  #button {
+    transform: scale(1.125);
   }
 }
 
@@ -121,8 +138,8 @@ body {
     font-size: 1.7vmax;
   }
 
-  #copyright {
-    font-size: 1.5vmax;
+  #button {
+    transform: scale(1.25);
   }
 }
 
@@ -140,26 +157,14 @@ body {
     font-size: 1.7vmax;
   }
 
-  #copyright {
-    font-size: 1.125vmax;
+  #button {
+    transform: scale(1.5);
   }
 }
 
 .text {
   color: var(--md-sys-color-primary);
   font-family: "Outfit", sans-serif;
-}
-
-.hidetext {
-  opacity: 0;
-}
-
-#centered {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
 .box {
@@ -190,11 +195,15 @@ body {
   justify-content: center;
 }
 
-#copyright {
-  font-weight: 200;
-  position: fixed;
-  width: max-content;
-  bottom: 1vmax;
-  left: 50%;
-  transform: translate(-50%, 0);
+#text404 {
+  text-align: center;
+  text-align-last: initial;
+  line-height: initial;
+  font-style: italic;
+  padding-top: 1vmax;
+  font-size: 1.5vmax;
+}
+
+#button {
+  margin-top: 2.5vmax;
 }
