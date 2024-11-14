@@ -16,7 +16,7 @@ function isMobileLandscape() {
   const isLandscape = window.innerWidth > window.innerHeight;
   const isSmallScreen = window.innerWidth <= 1024; // Consider screens smaller than or equal to 1024px width as mobile/tablet
   const isTouchDevice = !!("ontouchstart" in window);
-  return isLandscape && isSmallScreen && isTouchDevice;
+  return isLandscape && isSmallScreen && (isTouchDevice || isMobileUserAgent());
 }
 
 function isMobileUserAgent() {
