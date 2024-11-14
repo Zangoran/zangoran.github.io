@@ -28,7 +28,6 @@ function updateIframeZoom() {
   try {
     const pdfWindow = iframe.contentWindow;
     const PDFViewerApplication = pdfWindow.PDFViewerApplication;
-
     if (pdfWindow && PDFViewerApplication) {
       const zoomType = isMobileLandscape() ? "page-width" : "page-fit";
       iframe.contentWindow.addEventListener("webviewerloaded", function () {
@@ -36,7 +35,7 @@ function updateIframeZoom() {
       });
       PDFViewerApplication.pdfViewer.currentScaleValue = zoomType;
     } else {
-      console.warn("PDF.js API is not yet available. Waiting for webviewerloaded event.");
+      console.warn("PDF.js API is not yet available.");
     }
   } catch (error) {
     console.warn("Unable to access PDF.js API due to different origin or iframe not loaded yet.", error);
@@ -59,27 +58,31 @@ function handleMoveEvent(event) {
   );
 }
 
+document.addEventListener("webviewerloaded", function () {
+  const iframe = document.querySelector("#pdfjs");
+  const PDFViewerApplication = iframe.contentWindow.PDFViewerApplication;
+  PDFViewerApplication.initializedPromise.then(() => {
+    PDFViewerApplication.eventBus.on("documentloaded", function () {
+      try {
+        const viewerContainer = iframe.contentDocument.querySelector("#viewerContainer");
+        if (viewerContainer) {
+          viewerContainer.addEventListener("scroll", handleMoveEvent);
+          debouncedUpdateIframeZoom();
+          window.addEventListener("resize", function () {
+            debouncedUpdateIframeZoom();
+          });
+        } else {
+          console.warn("Viewer Container not loaded yet.");
+        }
+      } catch (error) {
+        console.warn("Unable to access iframe content due to different origin.", error);
+      }
+    });
+  });
+});
+
 window.onload = function () {
   sessionStorage.clear();
-  debouncedUpdateIframeZoom();
-  window.addEventListener("resize", function () {
-    debouncedUpdateIframeZoom();
-  });
-
-  const iframe = document.querySelector("#pdfjs");
-  iframe.addEventListener("load", function () {
-    updateIframeZoom();
-    try {
-      const viewerContainer = iframe.contentDocument.querySelector("#viewerContainer");
-      if (viewerContainer) {
-        viewerContainer.addEventListener("scroll", handleMoveEvent);
-      } else {
-        console.warn("Viewer Container not loaded yet.");
-      }
-    } catch (error) {
-      console.warn("Unable to access iframe content due to different origin.", error);
-    }
-  });
 };
 
 const fab = document.body.querySelector("#fab");
