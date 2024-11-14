@@ -54,6 +54,10 @@ function handleMoveEvent(event) {
 
 window.onload = function () {
   console.log("on load");
+  if (document.readyState == "complete") {
+    console.log("ready");
+  }
+
   sessionStorage.clear();
   debouncedUpdateIframeSrc();
   window.addEventListener("resize", function () {
