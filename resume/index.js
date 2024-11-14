@@ -31,7 +31,7 @@ function updateIframeSrc() {
   } else {
     newSrc = initialSrc + "#zoom=page-fit";
   }
-  if (iframe.src !== newSrc) {
+  if (!iframe.src || iframe.src !== newSrc) {
     iframe.src = newSrc;
   }
 }
@@ -61,7 +61,11 @@ window.onload = function () {
   const iframe = document.querySelector("#pdfjs");
   if (iframe.contentWindow) {
     const viewerContainer = iframe.contentDocument.querySelector("#viewerContainer");
-    viewerContainer.addEventListener("scroll", handleMoveEvent);
+    if (viewerContainer) {
+      viewerContainer.addEventListener("scroll", handleMoveEvent);
+    } else {
+      console.warn("Viewer Container not loaded yet.");
+    }
   } else {
     console.warn("Iframe has different origin.");
   }
