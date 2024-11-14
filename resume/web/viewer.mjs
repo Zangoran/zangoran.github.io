@@ -56,7 +56,7 @@ __webpack_require__.d(__webpack_exports__, {
   PDFViewerApplicationOptions: () => /* reexport */ AppOptions,
 }); // ./web/ui_utils.js
 
-const DEFAULT_SCALE_VALUE = "auto";
+const DEFAULT_SCALE_VALUE = "page-fit";
 const DEFAULT_SCALE = 1.0;
 const DEFAULT_SCALE_DELTA = 1.1;
 const MIN_SCALE = 0.1;
@@ -138,6 +138,11 @@ function scrollIntoView(element, spot, scrollMatches = false) {
     }
   }
   parent.scrollTop = offsetY;
+  // Custom: Store offsetY to use for animated-md-fab
+  if (!sessionStorage.getItem("pageOffsetY")) {
+    sessionStorage.setItem("pageOffsetY", Math.ceil(Math.abs(offsetY)));
+  }
+  // End Custom
 }
 function watchScroll(viewAreaElement, callback, abortSignal = undefined) {
   const debounceScroll = function (evt) {
@@ -829,7 +834,7 @@ const defaultOptions = {
 };
 {
   defaultOptions.defaultUrl = {
-    value: "compressed.tracemonkey-pldi-09.pdf",
+    value: "https://fetchdrivepdf.kodebalt.workers.dev/?fileId=1x_OPj1eTVYjztjKfSYKhUFhH4fXpsrF9&saveName=landquistz_Resume.pdf",
     kind: OptionKind.VIEWER,
   };
   defaultOptions.sandboxBundleSrc = {
@@ -3912,16 +3917,18 @@ class AnnotationEditorParams {
     this.eventBus = eventBus;
     this.#bindListeners(options);
   }
-  #bindListeners({
-    editorFreeTextFontSize,
-    editorFreeTextColor,
-    editorInkColor,
-    editorInkThickness,
-    editorInkOpacity,
-    editorStampAddImage,
-    editorFreeHighlightThickness,
-    editorHighlightShowAll,
-  }) {
+  #bindListeners(
+    {
+      // editorFreeTextFontSize,
+      // editorFreeTextColor,
+      // editorInkColor,
+      // editorInkThickness,
+      // editorInkOpacity,
+      // editorStampAddImage,
+      // editorFreeHighlightThickness,
+      // editorHighlightShowAll,
+    }
+  ) {
     const dispatchEvent = (typeStr, value) => {
       this.eventBus.dispatch("switchannotationeditorparams", {
         source: this,
@@ -3929,41 +3936,41 @@ class AnnotationEditorParams {
         value,
       });
     };
-    editorFreeTextFontSize.addEventListener("input", function () {
-      dispatchEvent("FREETEXT_SIZE", this.valueAsNumber);
-    });
-    editorFreeTextColor.addEventListener("input", function () {
-      dispatchEvent("FREETEXT_COLOR", this.value);
-    });
-    editorInkColor.addEventListener("input", function () {
-      dispatchEvent("INK_COLOR", this.value);
-    });
-    editorInkThickness.addEventListener("input", function () {
-      dispatchEvent("INK_THICKNESS", this.valueAsNumber);
-    });
-    editorInkOpacity.addEventListener("input", function () {
-      dispatchEvent("INK_OPACITY", this.valueAsNumber);
-    });
-    editorStampAddImage.addEventListener("click", () => {
-      this.eventBus.dispatch("reporttelemetry", {
-        source: this,
-        details: {
-          type: "editing",
-          data: {
-            action: "pdfjs.image.add_image_click",
-          },
-        },
-      });
-      dispatchEvent("CREATE");
-    });
-    editorFreeHighlightThickness.addEventListener("input", function () {
-      dispatchEvent("HIGHLIGHT_THICKNESS", this.valueAsNumber);
-    });
-    editorHighlightShowAll.addEventListener("click", function () {
-      const checked = this.getAttribute("aria-pressed") === "true";
-      this.setAttribute("aria-pressed", !checked);
-      dispatchEvent("HIGHLIGHT_SHOW_ALL", !checked);
-    });
+    // editorFreeTextFontSize.addEventListener("input", function () {
+    //   dispatchEvent("FREETEXT_SIZE", this.valueAsNumber);
+    // });
+    // editorFreeTextColor.addEventListener("input", function () {
+    //   dispatchEvent("FREETEXT_COLOR", this.value);
+    // });
+    // editorInkColor.addEventListener("input", function () {
+    //   dispatchEvent("INK_COLOR", this.value);
+    // });
+    // editorInkThickness.addEventListener("input", function () {
+    //   dispatchEvent("INK_THICKNESS", this.valueAsNumber);
+    // });
+    // editorInkOpacity.addEventListener("input", function () {
+    //   dispatchEvent("INK_OPACITY", this.valueAsNumber);
+    // });
+    // editorStampAddImage.addEventListener("click", () => {
+    //   this.eventBus.dispatch("reporttelemetry", {
+    //     source: this,
+    //     details: {
+    //       type: "editing",
+    //       data: {
+    //         action: "pdfjs.image.add_image_click",
+    //       },
+    //     },
+    //   });
+    //   dispatchEvent("CREATE");
+    // });
+    // editorFreeHighlightThickness.addEventListener("input", function () {
+    //   dispatchEvent("HIGHLIGHT_THICKNESS", this.valueAsNumber);
+    // });
+    // editorHighlightShowAll.addEventListener("click", function () {
+    //   const checked = this.getAttribute("aria-pressed") === "true";
+    //   this.setAttribute("aria-pressed", !checked);
+    //   dispatchEvent("HIGHLIGHT_SHOW_ALL", !checked);
+    // });
     this.eventBus._on("annotationeditorparamschanged", (evt) => {
       for (const [type, value] of evt.details) {
         switch (type) {
@@ -9922,17 +9929,17 @@ class PDFPageView {
       this.#dispatchLayerRendered("annotationlayerrendered", error);
     }
   }
-  async #renderAnnotationEditorLayer() {
-    let error = null;
-    try {
-      await this.annotationEditorLayer.render(this.viewport, "display");
-    } catch (ex) {
-      console.error(`#renderAnnotationEditorLayer: "${ex}".`);
-      error = ex;
-    } finally {
-      this.#dispatchLayerRendered("annotationeditorlayerrendered", error);
-    }
-  }
+  // async #renderAnnotationEditorLayer() {
+  //   let error = null;
+  //   try {
+  //     await this.annotationEditorLayer.render(this.viewport, "display");
+  //   } catch (ex) {
+  //     console.error(`#renderAnnotationEditorLayer: "${ex}".`);
+  //     error = ex;
+  //   } finally {
+  //     this.#dispatchLayerRendered("annotationeditorlayerrendered", error);
+  //   }
+  // }
   async #renderDrawLayer() {
     try {
       await this.drawLayer.render("display");
@@ -10245,7 +10252,7 @@ class PDFPageView {
       if (this.drawLayer) {
         this.#renderDrawLayer();
       }
-      this.#renderAnnotationEditorLayer();
+      // this.#renderAnnotationEditorLayer();
     }
     if (redrawXfaLayer && this.xfaLayer) {
       this.#renderXfaLayer();
@@ -10455,7 +10462,29 @@ class PDFPageView {
             this.#addLayer(annotationEditorLayerDiv, "annotationEditorLayer");
           },
         });
-        this.#renderAnnotationEditorLayer();
+        // this.#renderAnnotationEditorLayer();
+        // Custom: Get scrollbar width after page is rendered
+        function setScrollbarWidth() {
+          function getScrollbarWidth(element, direction) {
+            let scrollbarWidth = 0;
+            switch (direction) {
+              case "vertical":
+                scrollbarWidth = element.offsetWidth - element.clientWidth;
+                break;
+              case "horizontal":
+                scrollbarWidth = element.offsetHeight - element.clientHeight;
+                break;
+            }
+            return scrollbarWidth;
+          }
+          const viewerContainer = document.querySelector("#viewerContainer");
+          const viewerContainerScrollbarWidthVertical = getScrollbarWidth(viewerContainer, "vertical");
+          sessionStorage.setItem("verticalScrollbarWidth", viewerContainerScrollbarWidthVertical);
+          const viewerContainerScrollbarWidthHorizontal = getScrollbarWidth(viewerContainer, "horizontal");
+          sessionStorage.setItem("horizontalScrollbarWidth", viewerContainerScrollbarWidthHorizontal);
+        }
+        setScrollbarWidth();
+        // End Custom
       },
       (error) => {
         if (!(error instanceof RenderingCancelledException)) {
@@ -12108,16 +12137,16 @@ class SecondaryToolbar {
         eventName: null,
         close: true,
       },
-      {
-        element: options.firstPageButton,
-        eventName: "firstpage",
-        close: true,
-      },
-      {
-        element: options.lastPageButton,
-        eventName: "lastpage",
-        close: true,
-      },
+      // {
+      //   element: options.firstPageButton,
+      //   eventName: "firstpage",
+      //   close: true,
+      // },
+      // {
+      //   element: options.lastPageButton,
+      //   eventName: "lastpage",
+      //   close: true,
+      // },
       {
         element: options.pageRotateCwButton,
         eventName: "rotatecw",
@@ -12211,11 +12240,11 @@ class SecondaryToolbar {
         close: true,
       },
     ];
-    buttons.push({
-      element: options.openFileButton,
-      eventName: "openfile",
-      close: true,
-    });
+    // buttons.push({
+    //   element: options.openFileButton,
+    //   eventName: "openfile",
+    //   close: true,
+    // });
     this.eventBus = eventBus;
     this.opened = false;
     this.#bindListeners(buttons);
@@ -12248,9 +12277,14 @@ class SecondaryToolbar {
     });
   }
   #updateUIState() {
-    const { firstPageButton, lastPageButton, pageRotateCwButton, pageRotateCcwButton } = this.#opts;
-    firstPageButton.disabled = this.pageNumber <= 1;
-    lastPageButton.disabled = this.pageNumber >= this.pagesCount;
+    const {
+      //firstPageButton,
+      //lastPageButton,
+      pageRotateCwButton,
+      pageRotateCcwButton,
+    } = this.#opts;
+    //firstPageButton.disabled = this.pageNumber <= 1;
+    //lastPageButton.disabled = this.pageNumber >= this.pagesCount;
     pageRotateCwButton.disabled = this.pagesCount === 0;
     pageRotateCcwButton.disabled = this.pagesCount === 0;
   }
@@ -12352,14 +12386,14 @@ class Toolbar {
     this.#opts = options;
     this.eventBus = eventBus;
     const buttons = [
-      {
-        element: options.previous,
-        eventName: "previouspage",
-      },
-      {
-        element: options.next,
-        eventName: "nextpage",
-      },
+      // {
+      //   element: options.previous,
+      //   eventName: "previouspage",
+      // },
+      // {
+      //   element: options.next,
+      //   eventName: "nextpage",
+      // },
       {
         element: options.zoomIn,
         eventName: "zoomin",
@@ -12376,52 +12410,52 @@ class Toolbar {
         element: options.download,
         eventName: "download",
       },
-      {
-        element: options.editorFreeTextButton,
-        eventName: "switchannotationeditormode",
-        eventDetails: {
-          get mode() {
-            const { classList } = options.editorFreeTextButton;
-            return classList.contains("toggled") ? AnnotationEditorType.NONE : AnnotationEditorType.FREETEXT;
-          },
-        },
-      },
-      {
-        element: options.editorHighlightButton,
-        eventName: "switchannotationeditormode",
-        eventDetails: {
-          get mode() {
-            const { classList } = options.editorHighlightButton;
-            return classList.contains("toggled") ? AnnotationEditorType.NONE : AnnotationEditorType.HIGHLIGHT;
-          },
-        },
-      },
-      {
-        element: options.editorInkButton,
-        eventName: "switchannotationeditormode",
-        eventDetails: {
-          get mode() {
-            const { classList } = options.editorInkButton;
-            return classList.contains("toggled") ? AnnotationEditorType.NONE : AnnotationEditorType.INK;
-          },
-        },
-      },
-      {
-        element: options.editorStampButton,
-        eventName: "switchannotationeditormode",
-        eventDetails: {
-          get mode() {
-            const { classList } = options.editorStampButton;
-            return classList.contains("toggled") ? AnnotationEditorType.NONE : AnnotationEditorType.STAMP;
-          },
-        },
-        telemetry: {
-          type: "editing",
-          data: {
-            action: "pdfjs.image.icon_click",
-          },
-        },
-      },
+      // {
+      //   element: options.editorFreeTextButton,
+      //   eventName: "switchannotationeditormode",
+      //   eventDetails: {
+      //     get mode() {
+      //       const { classList } = options.editorFreeTextButton;
+      //       return classList.contains("toggled") ? AnnotationEditorType.NONE : AnnotationEditorType.FREETEXT;
+      //     },
+      //   },
+      // },
+      // {
+      //   element: options.editorHighlightButton,
+      //   eventName: "switchannotationeditormode",
+      //   eventDetails: {
+      //     get mode() {
+      //       const { classList } = options.editorHighlightButton;
+      //       return classList.contains("toggled") ? AnnotationEditorType.NONE : AnnotationEditorType.HIGHLIGHT;
+      //     },
+      //   },
+      // },
+      // {
+      //   element: options.editorInkButton,
+      //   eventName: "switchannotationeditormode",
+      //   eventDetails: {
+      //     get mode() {
+      //       const { classList } = options.editorInkButton;
+      //       return classList.contains("toggled") ? AnnotationEditorType.NONE : AnnotationEditorType.INK;
+      //     },
+      //   },
+      // },
+      // {
+      //   element: options.editorStampButton,
+      //   eventName: "switchannotationeditormode",
+      //   eventDetails: {
+      //     get mode() {
+      //       const { classList } = options.editorStampButton;
+      //       return classList.contains("toggled") ? AnnotationEditorType.NONE : AnnotationEditorType.STAMP;
+      //     },
+      //   },
+      //   telemetry: {
+      //     type: "editing",
+      //     data: {
+      //       action: "pdfjs.image.icon_click",
+      //     },
+      //   },
+      // },
     ];
     this.#bindListeners(buttons);
     this.#updateToolbarDensity({
@@ -12471,14 +12505,19 @@ class Toolbar {
     this.pageScaleValue = DEFAULT_SCALE_VALUE;
     this.pageScale = DEFAULT_SCALE;
     this.#updateUIState(true);
-    this.updateLoadingIndicatorState();
+    //this.updateLoadingIndicatorState();
     this.#editorModeChanged({
       mode: AnnotationEditorType.DISABLE,
     });
   }
   #bindListeners(buttons) {
     const { eventBus } = this;
-    const { editorHighlightColorPicker, editorHighlightButton, pageNumber, scaleSelect } = this.#opts;
+    const {
+      editorHighlightColorPicker,
+      editorHighlightButton,
+      //pageNumber,
+      scaleSelect,
+    } = this.#opts;
     const self = this;
     for (const { element, eventName, eventDetails, telemetry } of buttons) {
       element.addEventListener("click", (evt) => {
@@ -12497,15 +12536,15 @@ class Toolbar {
         }
       });
     }
-    pageNumber.addEventListener("click", function () {
-      this.select();
-    });
-    pageNumber.addEventListener("change", function () {
-      eventBus.dispatch("pagenumberchanged", {
-        source: self,
-        value: this.value,
-      });
-    });
+    // pageNumber.addEventListener("click", function () {
+    //   this.select();
+    // });
+    // pageNumber.addEventListener("change", function () {
+    //   eventBus.dispatch("pagenumberchanged", {
+    //     source: self,
+    //     value: this.value,
+    //   });
+    // });
     scaleSelect.addEventListener("change", function () {
       if (this.value === "custom") {
         return;
@@ -12544,58 +12583,63 @@ class Toolbar {
   }
   #editorModeChanged({ mode }) {
     const {
-      editorFreeTextButton,
-      editorFreeTextParamsToolbar,
-      editorHighlightButton,
-      editorHighlightParamsToolbar,
-      editorInkButton,
-      editorInkParamsToolbar,
-      editorStampButton,
-      editorStampParamsToolbar,
+      // editorFreeTextButton,
+      // editorFreeTextParamsToolbar,
+      // editorHighlightButton,
+      // editorHighlightParamsToolbar,
+      // editorInkButton,
+      // editorInkParamsToolbar,
+      // editorStampButton,
+      // editorStampParamsToolbar,
     } = this.#opts;
-    toggleExpandedBtn(editorFreeTextButton, mode === AnnotationEditorType.FREETEXT, editorFreeTextParamsToolbar);
-    toggleExpandedBtn(editorHighlightButton, mode === AnnotationEditorType.HIGHLIGHT, editorHighlightParamsToolbar);
-    toggleExpandedBtn(editorInkButton, mode === AnnotationEditorType.INK, editorInkParamsToolbar);
-    toggleExpandedBtn(editorStampButton, mode === AnnotationEditorType.STAMP, editorStampParamsToolbar);
+    // toggleExpandedBtn(editorFreeTextButton, mode === AnnotationEditorType.FREETEXT, editorFreeTextParamsToolbar);
+    // toggleExpandedBtn(editorHighlightButton, mode === AnnotationEditorType.HIGHLIGHT, editorHighlightParamsToolbar);
+    // toggleExpandedBtn(editorInkButton, mode === AnnotationEditorType.INK, editorInkParamsToolbar);
+    // toggleExpandedBtn(editorStampButton, mode === AnnotationEditorType.STAMP, editorStampParamsToolbar);
     const isDisable = mode === AnnotationEditorType.DISABLE;
-    editorFreeTextButton.disabled = isDisable;
-    editorHighlightButton.disabled = isDisable;
-    editorInkButton.disabled = isDisable;
-    editorStampButton.disabled = isDisable;
+    // editorFreeTextButton.disabled = isDisable;
+    // editorHighlightButton.disabled = isDisable;
+    // editorInkButton.disabled = isDisable;
+    // editorStampButton.disabled = isDisable;
   }
   #updateUIState(resetNumPages = false) {
-    const { pageNumber, pagesCount, pageScaleValue, pageScale } = this;
+    const {
+      //pageNumber,
+      //pagesCount,
+      pageScaleValue,
+      pageScale,
+    } = this;
     const opts = this.#opts;
-    if (resetNumPages) {
-      if (this.hasPageLabels) {
-        opts.pageNumber.type = "text";
-        opts.numPages.setAttribute("data-l10n-id", "pdfjs-page-of-pages");
-      } else {
-        opts.pageNumber.type = "number";
-        opts.numPages.setAttribute("data-l10n-id", "pdfjs-of-pages");
-        opts.numPages.setAttribute(
-          "data-l10n-args",
-          JSON.stringify({
-            pagesCount,
-          })
-        );
-      }
-      opts.pageNumber.max = pagesCount;
-    }
-    if (this.hasPageLabels) {
-      opts.pageNumber.value = this.pageLabel;
-      opts.numPages.setAttribute(
-        "data-l10n-args",
-        JSON.stringify({
-          pageNumber,
-          pagesCount,
-        })
-      );
-    } else {
-      opts.pageNumber.value = pageNumber;
-    }
-    opts.previous.disabled = pageNumber <= 1;
-    opts.next.disabled = pageNumber >= pagesCount;
+    // if (resetNumPages) {
+    //   if (this.hasPageLabels) {
+    //     opts.pageNumber.type = "text";
+    //     opts.numPages.setAttribute("data-l10n-id", "pdfjs-page-of-pages");
+    //   } else {
+    //     opts.pageNumber.type = "number";
+    //     opts.numPages.setAttribute("data-l10n-id", "pdfjs-of-pages");
+    //     opts.numPages.setAttribute(
+    //       "data-l10n-args",
+    //       JSON.stringify({
+    //         pagesCount,
+    //       })
+    //     );
+    //   }
+    //   opts.pageNumber.max = pagesCount;
+    // }
+    // if (this.hasPageLabels) {
+    //   opts.pageNumber.value = this.pageLabel;
+    //   opts.numPages.setAttribute(
+    //     "data-l10n-args",
+    //     JSON.stringify({
+    //       pageNumber,
+    //       pagesCount,
+    //     })
+    //   );
+    // } else {
+    //   opts.pageNumber.value = pageNumber;
+    // }
+    // opts.previous.disabled = pageNumber <= 1;
+    // opts.next.disabled = pageNumber >= pagesCount;
     opts.zoomOut.disabled = pageScale <= MIN_SCALE;
     opts.zoomIn.disabled = pageScale >= MAX_SCALE;
     let predefinedValueFound = false;
@@ -12617,10 +12661,10 @@ class Toolbar {
       );
     }
   }
-  updateLoadingIndicatorState(loading = false) {
-    const { pageNumber } = this.#opts;
-    pageNumber.classList.toggle("loading", loading);
-  }
+  // updateLoadingIndicatorState(loading = false) {
+  //   const { pageNumber } = this.#opts;
+  //   pageNumber.classList.toggle("loading", loading);
+  // }
 } // ./web/view_history.js
 
 const DEFAULT_VIEW_HISTORY_CACHE_SIZE = 20;
@@ -14083,7 +14127,7 @@ initCom(PDFViewerApplication);
   PDFPrintServiceFactory.initGlobals(PDFViewerApplication);
 }
 {
-  const HOSTED_VIEWER_ORIGINS = ["null", "http://mozilla.github.io", "https://mozilla.github.io"];
+  const HOSTED_VIEWER_ORIGINS = ["null", "https://zachthe.dev"];
   var validateFileURL = function (file) {
     if (!file) {
       return;
@@ -14120,12 +14164,12 @@ initCom(PDFViewerApplication);
 }
 function onPageRender({ pageNumber }) {
   if (pageNumber === this.page) {
-    this.toolbar?.updateLoadingIndicatorState(true);
+    // this.toolbar?.updateLoadingIndicatorState(true);
   }
 }
 function onPageRendered({ pageNumber, error }) {
   if (pageNumber === this.page) {
-    this.toolbar?.updateLoadingIndicatorState(false);
+    // this.toolbar?.updateLoadingIndicatorState(false);
   }
   if (this.pdfSidebar?.visibleView === SidebarView.THUMBS) {
     const pageView = this.pdfViewer.getPageView(pageNumber - 1);
@@ -14298,7 +14342,7 @@ function onPageChanging({ pageNumber, pageLabel }) {
     this.pdfThumbnailViewer?.scrollThumbnailIntoView(pageNumber);
   }
   const currentPage = this.pdfViewer.getPageView(pageNumber - 1);
-  this.toolbar?.updateLoadingIndicatorState(currentPage?.renderingState === RenderingStates.RUNNING);
+  // this.toolbar?.updateLoadingIndicatorState(currentPage?.renderingState === RenderingStates.RUNNING);
 }
 function onWheel(evt) {
   const { pdfViewer, supportsMouseWheelZoomCtrlKey, supportsMouseWheelZoomMetaKey, supportsPinchToZoom } = this;
@@ -14749,35 +14793,35 @@ function getViewerConfiguration() {
     toolbar: {
       container: document.getElementById("toolbarContainer"),
       numPages: document.getElementById("numPages"),
-      pageNumber: document.getElementById("pageNumber"),
+      // pageNumber: document.getElementById("pageNumber"),
       scaleSelect: document.getElementById("scaleSelect"),
       customScaleOption: document.getElementById("customScaleOption"),
-      previous: document.getElementById("previous"),
-      next: document.getElementById("next"),
+      // previous: document.getElementById("previous"),
+      // next: document.getElementById("next"),
       zoomIn: document.getElementById("zoomInButton"),
       zoomOut: document.getElementById("zoomOutButton"),
       print: document.getElementById("printButton"),
-      editorFreeTextButton: document.getElementById("editorFreeTextButton"),
-      editorFreeTextParamsToolbar: document.getElementById("editorFreeTextParamsToolbar"),
-      editorHighlightButton: document.getElementById("editorHighlightButton"),
-      editorHighlightParamsToolbar: document.getElementById("editorHighlightParamsToolbar"),
-      editorHighlightColorPicker: document.getElementById("editorHighlightColorPicker"),
-      editorInkButton: document.getElementById("editorInkButton"),
-      editorInkParamsToolbar: document.getElementById("editorInkParamsToolbar"),
-      editorStampButton: document.getElementById("editorStampButton"),
-      editorStampParamsToolbar: document.getElementById("editorStampParamsToolbar"),
+      // editorFreeTextButton: document.getElementById("editorFreeTextButton"),
+      // editorFreeTextParamsToolbar: document.getElementById("editorFreeTextParamsToolbar"),
+      // editorHighlightButton: document.getElementById("editorHighlightButton"),
+      // editorHighlightParamsToolbar: document.getElementById("editorHighlightParamsToolbar"),
+      // editorHighlightColorPicker: document.getElementById("editorHighlightColorPicker"),
+      // editorInkButton: document.getElementById("editorInkButton"),
+      // editorInkParamsToolbar: document.getElementById("editorInkParamsToolbar"),
+      // editorStampButton: document.getElementById("editorStampButton"),
+      // editorStampParamsToolbar: document.getElementById("editorStampParamsToolbar"),
       download: document.getElementById("downloadButton"),
     },
     secondaryToolbar: {
       toolbar: document.getElementById("secondaryToolbar"),
       toggleButton: document.getElementById("secondaryToolbarToggleButton"),
       presentationModeButton: document.getElementById("presentationMode"),
-      openFileButton: document.getElementById("secondaryOpenFile"),
+      // openFileButton: document.getElementById("secondaryOpenFile"),
       printButton: document.getElementById("secondaryPrint"),
       downloadButton: document.getElementById("secondaryDownload"),
       viewBookmarkButton: document.getElementById("viewBookmark"),
-      firstPageButton: document.getElementById("firstPage"),
-      lastPageButton: document.getElementById("lastPage"),
+      // firstPageButton: document.getElementById("firstPage"),
+      // lastPageButton: document.getElementById("lastPage"),
       pageRotateCwButton: document.getElementById("pageRotateCw"),
       pageRotateCcwButton: document.getElementById("pageRotateCcw"),
       cursorSelectToolButton: document.getElementById("cursorSelectTool"),
@@ -14930,5 +14974,3 @@ export {
   __webpack_exports__PDFViewerApplicationConstants as PDFViewerApplicationConstants,
   __webpack_exports__PDFViewerApplicationOptions as PDFViewerApplicationOptions,
 };
-
-//# sourceMappingURL=viewer.mjs.map
