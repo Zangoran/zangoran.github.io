@@ -9,15 +9,19 @@ function debounce(func, wait) {
     }, wait);
   };
 }
+
 var debouncedUpdateIframeSrc = debounce(updateIframeSrc, 50);
+
 function isMobileLandscape() {
   const isLargeLandscape = window.innerWidth > window.innerHeight && window.matchMedia("(min-aspect-ratio: 16/9)").matches;
   const isTouchDevice = !!("ontouchstart" in window);
   return isLargeLandscape && (isTouchDevice || isMobileUserAgent());
 }
+
 function isMobileUserAgent() {
   return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 }
+
 function updateIframeSrc() {
   var iframe = document.querySelector("#pdfjs");
   var initialSrc = iframe.getAttribute("data-initial-src");
@@ -31,6 +35,7 @@ function updateIframeSrc() {
     iframe.src = newSrc;
   }
 }
+
 function handleMoveEvent(event) {
   const viewerScrollTop = event.target.scrollTop;
   const viewerScrollHeight = event.target.scrollHeight;
@@ -46,7 +51,9 @@ function handleMoveEvent(event) {
     })
   );
 }
+
 window.onload = function () {
+  console.log("on load");
   sessionStorage.clear();
   debouncedUpdateIframeSrc();
   window.addEventListener("resize", function () {
@@ -65,6 +72,7 @@ const fab = document.body.querySelector("#fab");
 fab.addEventListener("click", () => {
   window.location.href = "/";
 });
+
 function addRootVariable(variableName, value) {
   const styleSheet = document.styleSheets[2];
   if (styleSheet) {
@@ -84,6 +92,7 @@ function addRootVariable(variableName, value) {
     console.error("StyleSheet not found.");
   }
 }
+
 function handleStorageChange(event) {
   if (event.key === "verticalScrollbarWidth") {
     const verticalScrollbarWidth = sessionStorage.getItem("verticalScrollbarWidth");
@@ -93,4 +102,5 @@ function handleStorageChange(event) {
     addRootVariable("--horizontal-scrollbar-width", `${horizontalScrollbarWidth}px`);
   }
 }
+
 window.addEventListener("storage", handleStorageChange);
