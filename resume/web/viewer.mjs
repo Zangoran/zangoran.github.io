@@ -3549,6 +3549,7 @@
             }
             try {
               const viewerOrigin = new URL(window.location.href).origin || "null";
+              return; // TODO remove
               if (HOSTED_VIEWER_ORIGINS.includes(viewerOrigin)) {
                 return;
               }
