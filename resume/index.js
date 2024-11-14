@@ -58,17 +58,22 @@ window.onload = function () {
   window.addEventListener("resize", function () {
     debouncedUpdateIframeSrc();
   });
+
   const iframe = document.querySelector("#pdfjs");
-  if (iframe.contentWindow) {
-    const viewerContainer = iframe.contentDocument.querySelector("#viewerContainer");
-    if (viewerContainer) {
-      viewerContainer.addEventListener("scroll", handleMoveEvent);
-    } else {
-      console.warn("Viewer Container not loaded yet.");
+
+  // Wait for iframe to load
+  iframe.addEventListener("load", function () {
+    try {
+      const viewerContainer = iframe.contentDocument.querySelector("#viewerContainer");
+      if (viewerContainer) {
+        viewerContainer.addEventListener("scroll", handleMoveEvent);
+      } else {
+        console.warn("Viewer Container not loaded yet.");
+      }
+    } catch (error) {
+      console.warn("Unable to access iframe content due to different origin.", error);
     }
-  } else {
-    console.warn("Iframe has different origin.");
-  }
+  });
 };
 
 const fab = document.body.querySelector("#fab");
