@@ -10,7 +10,7 @@ function debounce(func, wait) {
   };
 }
 
-var debouncedUpdateIframeSrc = debounce(updateIframeSrc, 50);
+var debouncedUpdateIframeZoom = debounce(updateIframeZoom, 50);
 
 function isMobileLandscape() {
   const isLandscape = window.innerWidth > window.innerHeight;
@@ -23,17 +23,23 @@ function isMobileUserAgent() {
   return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 }
 
-function updateIframeSrc() {
-  var iframe = document.querySelector("#pdfjs");
-  var initialSrc = iframe.getAttribute("data-initial-src");
-  var newSrc;
-  if (isMobileLandscape()) {
-    newSrc = initialSrc + "#zoom=page-width";
-  } else {
-    newSrc = initialSrc + "#zoom=page-fit";
-  }
-  if (!iframe.src || iframe.src !== newSrc) {
-    iframe.src = newSrc;
+function updateIframeZoom() {
+  const iframe = document.querySelector("#pdfjs");
+  try {
+    const pdfWindow = iframe.contentWindow;
+    const PDFViewerApplication = pdfWindow.PDFViewerApplication;
+
+    if (pdfWindow && PDFViewerApplication) {
+      const zoomType = isMobileLandscape() ? "page-width" : "page-fit";
+      iframe.contentWindow.addEventListener("webviewerloaded", function () {
+        PDFViewerApplication.pdfViewer.currentScaleValue = zoomType;
+      });
+      PDFViewerApplication.pdfViewer.currentScaleValue = zoomType;
+    } else {
+      console.warn("PDF.js API is not yet available. Waiting for webviewerloaded event.");
+    }
+  } catch (error) {
+    console.warn("Unable to access PDF.js API due to different origin or iframe not loaded yet.", error);
   }
 }
 
@@ -55,13 +61,14 @@ function handleMoveEvent(event) {
 
 window.onload = function () {
   sessionStorage.clear();
-  debouncedUpdateIframeSrc();
+  debouncedUpdateIframeZoom();
   window.addEventListener("resize", function () {
-    debouncedUpdateIframeSrc();
+    debouncedUpdateIframeZoom();
   });
 
   const iframe = document.querySelector("#pdfjs");
   iframe.addEventListener("load", function () {
+    updateIframeZoom();
     try {
       const viewerContainer = iframe.contentDocument.querySelector("#viewerContainer");
       if (viewerContainer) {

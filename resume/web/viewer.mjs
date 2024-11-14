@@ -16,7 +16,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * @licend The above is the entire license notice for the
+ * @licensed The above is the entire license notice for the
  * JavaScript code in this page
  */
 
