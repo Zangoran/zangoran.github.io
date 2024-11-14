@@ -3542,14 +3542,13 @@
           },
         };
         {
-          const HOSTED_VIEWER_ORIGINS = ["null", "http://zachthe.dev", "https://zachthe.dev", "http://127.0.0.1:5500"];
+          const HOSTED_VIEWER_ORIGINS = ["null", "https://zachthe.dev"];
           var validateFileURL = function (file) {
             if (!file) {
               return;
             }
             try {
               const viewerOrigin = new URL(window.location.href).origin || "null";
-              return; // TODO remove
               if (HOSTED_VIEWER_ORIGINS.includes(viewerOrigin)) {
                 return;
               }

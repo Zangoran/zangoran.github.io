@@ -60,8 +60,6 @@ window.onload = function () {
   });
 
   const iframe = document.querySelector("#pdfjs");
-
-  // Wait for iframe to load
   iframe.addEventListener("load", function () {
     try {
       const viewerContainer = iframe.contentDocument.querySelector("#viewerContainer");
