@@ -38,7 +38,9 @@ See https://github.com/adobe-type-tools/cmap-resources
 
     <script>
       window.onload = function () {
-        console.log("viewer load");
+        if (document.readyState == "complete") {
+          console.log("viewer load");
+        }
       };
     </script>
   </head>
