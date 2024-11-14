@@ -53,11 +53,10 @@ function handleMoveEvent(event) {
 }
 
 window.onload = function () {
-  console.log("on load");
   sessionStorage.clear();
-  //debouncedUpdateIframeSrc();
+  debouncedUpdateIframeSrc();
   window.addEventListener("resize", function () {
-    //debouncedUpdateIframeSrc();
+    debouncedUpdateIframeSrc();
   });
   const iframe = document.querySelector("#pdfjs");
   if (iframe.contentWindow) {
