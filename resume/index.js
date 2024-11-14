@@ -13,9 +13,10 @@ function debounce(func, wait) {
 var debouncedUpdateIframeSrc = debounce(updateIframeSrc, 50);
 
 function isMobileLandscape() {
-  const isLargeLandscape = window.innerWidth > window.innerHeight && window.matchMedia("(min-aspect-ratio: 16/9)").matches;
+  const isLandscape = window.innerWidth > window.innerHeight;
+  const isSmallScreen = window.innerWidth <= 1024; // Consider screens smaller than or equal to 1024px width as mobile/tablet
   const isTouchDevice = !!("ontouchstart" in window);
-  return isLargeLandscape && (isTouchDevice || isMobileUserAgent());
+  return isLandscape && isSmallScreen && isTouchDevice;
 }
 
 function isMobileUserAgent() {
