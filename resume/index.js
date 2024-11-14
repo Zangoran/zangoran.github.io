@@ -55,20 +55,18 @@ function handleMoveEvent(event) {
 window.onload = function () {
   console.log("on load");
   if (document.readyState == "complete") {
-    console.log("ready");
-  }
-
-  sessionStorage.clear();
-  debouncedUpdateIframeSrc();
-  window.addEventListener("resize", function () {
+    sessionStorage.clear();
     debouncedUpdateIframeSrc();
-  });
-  const iframe = document.querySelector("#pdfjs");
-  if (iframe.contentWindow) {
-    const viewerContainer = iframe.contentDocument.querySelector("#viewerContainer");
-    viewerContainer.addEventListener("scroll", handleMoveEvent);
-  } else {
-    console.warn("Iframe has different origin.");
+    window.addEventListener("resize", function () {
+      debouncedUpdateIframeSrc();
+    });
+    const iframe = document.querySelector("#pdfjs");
+    if (iframe.contentWindow) {
+      const viewerContainer = iframe.contentDocument.querySelector("#viewerContainer");
+      viewerContainer.addEventListener("scroll", handleMoveEvent);
+    } else {
+      console.warn("Iframe has different origin.");
+    }
   }
 };
 
