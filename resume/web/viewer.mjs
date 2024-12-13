@@ -3042,7 +3042,7 @@ async function docProperties(pdfDocument) {
     ...info,
     baseURL: baseUrl,
     filesize: contentLength,
-    filename: contentDispositionFilename || getPdfFilenameFromUrl(url),
+    filename: getPdfFilenameFromUrl(url) || contentDispositionFilename,
     metadata: metadata?.getRaw(),
     authors: metadata?.get("dc:creator"),
     numPages: pdfDocument.numPages,
@@ -13268,7 +13268,7 @@ const PDFViewerApplication = {
     document.title = `${editorIndicator ? "* " : ""}${title}`;
   },
   get _docFilename() {
-    return this._contentDispositionFilename || pdfjs_getPdfFilenameFromUrl(this.url);
+    return pdfjs_getPdfFilenameFromUrl(this.url) || this._contentDispositionFilename;
   },
   _hideViewBookmark() {
     const { secondaryToolbar } = this.appConfig;
