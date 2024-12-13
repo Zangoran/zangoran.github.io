@@ -834,7 +834,7 @@ const defaultOptions = {
 };
 {
   defaultOptions.defaultUrl = {
-    value: "https://fetchdrivepdf.kodebalt.workers.dev/?fileId=1x_OPj1eTVYjztjKfSYKhUFhH4fXpsrF9&saveName=landquistz_Resume.pdf",
+    value: "https://proxy.kodebalt.com/?url=https://drive.google.com/uc?id=1x_OPj1eTVYjztjKfSYKhUFhH4fXpsrF9&saveName=landquistz_Resume.pdf",
     kind: OptionKind.VIEWER,
   };
   defaultOptions.sandboxBundleSrc = {
